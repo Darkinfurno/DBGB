@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Card
     {
         public string Name
