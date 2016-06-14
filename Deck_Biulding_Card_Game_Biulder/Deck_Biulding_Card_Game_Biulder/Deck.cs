@@ -6,40 +6,44 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    public class PlayerDeck
+    public class PlayerDeck : DeckBaseClass
     {
         List<Card> DeckList = new List<Card>();
-        InPlayCardset played = new InPlayCardset();
-        List<Card> Discarded = new List<Card>();
-        List<Card> hand = new List<Card>();
+        List<Card> played = new List<Card>();
+        List<Card> RemovedCards = new List<Card>();
+        List<Card> AvailableCards = new List<Card>();
         int HandSize;
 
         public void discard(Card card)
         {
-            hand.Remove(card);
-            Discarded.Add(card);
+            AvailableCards.Remove(card);
+            RemovedCards.Add(card);
         }
         public void endTurn()
         {
-
+            foreach(Card card in played)
+            {
+                RemovedCards.Add(card);
+            }
+            played.Clear();
+            foreach (Card card in AvailableCards)
+            {
+                RemovedCards.Add(card);
+            }
+            AvailableCards.Clear();
+            refillCards();
         }
 
         public Card playcard(int index)
         {
-            Card played = hand[index];
-            hand.RemoveAt(index);
+            Card played = AvailableCards[index];
+            AvailableCards.RemoveAt(index);
             return played;
         }
 
-        public void draw()
+        public void drawAttemptFinish()
         {
-            if(DeckList.Count > 0 )
-            {
-                hand.Add(DeckList[0]);
-                DeckList.RemoveAt(0);
-                return;
-            }
-            else if (DeckList.Count + Discarded.Count != 0)
+            if (DeckList.Count + RemovedCards.Count != 0)
             {
                 shuffle();
                 draw();
@@ -52,18 +56,21 @@ namespace Deck_Biulding_Card_Game_Biulder
             set{ HandSize = value;}
         }
 
-        public void refillHand()
+        public void refillCards()
         {
-
+            while(AvailableCards.Count < HandSize)
+            {
+                draw();
+            }
         }
 
         public void shuffle()
         {
-            List<Card> source = Discarded;
+            List<Card> source = RemovedCards;
             var rnd = new Random();
             var result = source.OrderBy(item => rnd.Next());
             DeckList = (List<Card>)result;
-            Discarded.Clear();
+            RemovedCards.Clear();
         }
     }
 }

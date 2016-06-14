@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    class MainDeck
+    class MainDeck : DeckBaseClass
     {
         int GameDeckNum;
         int LineUpCound;
@@ -52,6 +52,11 @@ namespace Deck_Biulding_Card_Game_Biulder
                 DeckList.Add(ShowList[0]);
                 ShowList.RemoveAt(0);
             }
+        }
+
+        public void drawAttemptFinish()
+        {
+            //End GAME
         }
     }
 }
