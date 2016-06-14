@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    class Deck
+    public class PlayerDeck
     {
         List<Card> DeckList = new List<Card>();
         InPlayCardset played = new InPlayCardset();

@@ -13,7 +13,7 @@ namespace Deck_Biulding_Card_Game_Biulder
     public partial class Form1 : Form
     {
         int currentPlayer;
-        List<Deck> playerList = new List<Deck>();
+        List<PlayerDeck> playerList = new List<PlayerDeck>();
         List<MainDeck> mainDeckList = new List<MainDeck>();
         List<Card> removedCards = new List<Card>();
         List<Card> startingHand = new List<Card>();
