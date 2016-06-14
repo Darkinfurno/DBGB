@@ -41,7 +41,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             return played;
         }
 
-        public void drawAttemptFinish()
+        public override void drawAttemptFinish()
         {
             if (DeckList.Count + RemovedCards.Count != 0)
             {

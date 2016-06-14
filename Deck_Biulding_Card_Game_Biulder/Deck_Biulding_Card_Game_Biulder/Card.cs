@@ -8,17 +8,17 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public class Card
     {
-        private string Name
+        public string Name
         {
             get;
             private set;
         }
-        private int ID
+        public int ID
         {
             get;
             private set;
         }
-        private int Owner
+        public int Owner
         {
             get;
             private set;
@@ -31,7 +31,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         //something
-        public void Card(string aName, int aID)
+        public Card(string aName, int aID)
         {
             this.Name = aName;
             this.ID = aID;

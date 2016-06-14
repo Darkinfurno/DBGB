@@ -21,7 +21,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 {
                     return false;
                 }
-                Card temp = new Card();
+                Card temp = new Card("",2);
                 temp = DeckList[0];
                 DeckList.RemoveAt(0);
                 ActiveLineUp.Add(temp);
@@ -54,9 +54,9 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
-        public void drawAttemptFinish()
+        public override void drawAttemptFinish()
         {
-            //End GAME
+            throw new NotImplementedException();
         }
     }
 }

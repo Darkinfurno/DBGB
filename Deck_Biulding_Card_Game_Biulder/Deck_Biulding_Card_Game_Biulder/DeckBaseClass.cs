@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    abstract class DeckBaseClass
+    public abstract class DeckBaseClass
     {
         protected List<Card> DeckList = new List<Card>();
         protected List<Card> AvailableCards = new List<Card>();
@@ -23,7 +23,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             drawAttemptFinish();
             
         }
-        abstract void drawAttemptFinish();
+        public abstract void drawAttemptFinish();
         
     }
 }
