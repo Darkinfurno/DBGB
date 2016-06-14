@@ -6,36 +6,50 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    class Card
+    public class Card
     {
-        List<Tuple<int, int>> Effects = new List<Tuple<int, int>>();
-        string name;
-        int id;
-        int owner;
-
-        public void Card(string Name, int ID)
+        private string Name
         {
+            get;
+            private set;
+        }
+        private int ID
+        {
+            get;
+            private set;
+        }
+        private int Owner
+        {
+            get;
+            private set;
+        }
 
+        public List<Tuple<int, int>> Effects
+        {
+            get;
+            private set;
+        }
+
+        public void Card(string aName, int aID)
+        {
+            this.Name = aName;
+            this.ID = aID;
+            this.Effects = new List<Tuple<int, int>>();
         }
         
-        public void AddEffect(int effect, int times)
+        public void AddEffect(int aEffect, int aTimes)
         {
-            Effects.Add(new Tuple<int,int>(effect,times));
+            Effects.Add(new Tuple<int,int>(aEffect, aTimes));
         }
 
-        public void removeEffect(int effect)
+        public void removeEffect(int aEffect)
         {
-            Effects.RemoveAll(x => x.Item1 == effect);
+            Effects.RemoveAll(x => x.Item1 == aEffect);
         }
 
-        public void updateOwner(Player Owner)
+        public void updateOwner(int aOwner)
         {
-
-        }
-
-        public List<Tuple<int,int>> _effects
-        {
-            get { return Effects; }
+            this.Owner = aOwner;
         }
     }
 }
