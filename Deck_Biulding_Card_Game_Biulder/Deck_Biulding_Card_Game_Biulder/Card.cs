@@ -30,6 +30,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
+        //something
         public void Card(string aName, int aID)
         {
             this.Name = aName;
