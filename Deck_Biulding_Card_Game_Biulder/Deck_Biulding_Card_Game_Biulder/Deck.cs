@@ -33,13 +33,16 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void draw()
         {
-            if(DeckList.Count > 0)
+            if(DeckList.Count > 0 )
             {
-
+                hand.Add(DeckList[0]);
+                DeckList.RemoveAt(0);
+                return;
             }
-            else
+            else if (DeckList.Count + Discarded.Count != 0)
             {
-
+                shuffle();
+                draw();
             }
         }
          
@@ -56,7 +59,11 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void shuffle()
         {
-
+            List<Card> source = Discarded;
+            var rnd = new Random();
+            var result = source.OrderBy(item => rnd.Next());
+            DeckList = (List<Card>)result;
+            Discarded.Clear();
         }
     }
 }
