@@ -8,23 +8,19 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     class GameDeck : DeckBaseClass
     {
-        int GameDeckNum;
-        int LineUpCound;
-        List<Card> DeckList = new List<Card>();
-        List<Card> ActiveLineUp = new List<Card>();
         List<Card> ShowList = new List<Card>();
         public bool Refill()
         {
-            while(ActiveLineUp.Count < LineUpCound)
+            while(AvailableCards.Count < AvailableCards.Count)
             {
                 if (DeckList.Count == 0)
                 {
                     return false;
                 }
-                Card temp = new Card("",2);
-                temp = DeckList[0];
+                
+                Card temp = DeckList[0];
                 DeckList.RemoveAt(0);
-                ActiveLineUp.Add(temp);
+                AvailableCards.Add(temp);
             }
             return true;
         }
@@ -54,8 +50,14 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
+        public void GameStartUp()
+        {
+            DeckList = shuffle(DeckList);
+        }
+
         public override void drawAttemptFinish()
         {
+            //End Game
             throw new NotImplementedException();
         }
     }
