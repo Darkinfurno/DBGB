@@ -33,7 +33,14 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void draw()
         {
+            if(DeckList.Count > 0)
+            {
 
+            }
+            else
+            {
+
+            }
         }
          
         public int _defaultHandSize
@@ -43,6 +50,11 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         public void refillHand()
+        {
+
+        }
+
+        public void shuffle()
         {
 
         }

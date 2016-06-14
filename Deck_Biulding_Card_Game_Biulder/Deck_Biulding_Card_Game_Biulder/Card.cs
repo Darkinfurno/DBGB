@@ -11,7 +11,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         List<Tuple<int, int>> Effects = new List<Tuple<int, int>>();
         string name;
         int id;
-        Player owner;
+        int owner;
 
         public void Card(string Name, int ID)
         {
