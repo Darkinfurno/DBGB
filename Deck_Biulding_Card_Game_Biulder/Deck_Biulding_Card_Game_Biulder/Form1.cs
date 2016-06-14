@@ -14,7 +14,7 @@ namespace Deck_Biulding_Card_Game_Biulder
     {
         int currentPlayer;
         List<PlayerDeck> playerList = new List<PlayerDeck>();
-        List<MainDeck> mainDeckList = new List<MainDeck>();
+        List<GameDeck> mainDeckList = new List<GameDeck>();
         List<Card> removedCards = new List<Card>();
         List<Card> startingHand = new List<Card>();
 
