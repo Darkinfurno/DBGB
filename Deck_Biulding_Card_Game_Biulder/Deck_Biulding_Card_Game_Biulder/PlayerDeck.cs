@@ -8,11 +8,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public class PlayerDeck : DeckBaseClass
     {
-        List<Card> DeckList = new List<Card>();
         List<Card> played = new List<Card>();
-        List<Card> RemovedCards = new List<Card>();
-        List<Card> AvailableCards = new List<Card>();
-        int HandSize;
 
         public void discard(Card card)
         {
@@ -45,31 +41,14 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             if (DeckList.Count + RemovedCards.Count != 0)
             {
-                shuffle();
-                draw();
-            }
-        }
-         
-        public int _defaultHandSize
-        { 
-            get{ return HandSize; }
-            set{ HandSize = value;}
-        }
-
-        public void refillCards()
-        {
-            while(AvailableCards.Count < HandSize)
-            {
+                shuffleDeck();
                 draw();
             }
         }
 
-        public void shuffle()
+        public void shuffleDeck()
         {
-            List<Card> source = RemovedCards;
-            var rnd = new Random();
-            var result = source.OrderBy(item => rnd.Next());
-            DeckList = (List<Card>)result;
+            DeckList = shuffle(RemovedCards);
             RemovedCards.Clear();
         }
     }

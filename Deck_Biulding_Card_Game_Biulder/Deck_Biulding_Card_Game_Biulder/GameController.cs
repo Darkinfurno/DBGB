@@ -13,6 +13,9 @@ namespace Deck_Biulding_Card_Game_Biulder
         List<Card> removedCards;
         List<Card> startingHand;
 
+        //Events need to be able to link together Exp. peek at top 2 cards draw if different types draw = peekSelf * 2 + typeDifDraw maybe have events take arguments of type object and cast to type expected?
+        enum events { draw, typeDifDraw, typeSameDraw, peekSelf, peekMain, OddDraw, EvenDraw, TypeDraw,  }
+
         public GameController()
         {
             playerList = new List<PlayerDeck>();
@@ -29,8 +32,16 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
-        public void cardEvent(int EventName)
+        public Object cardEvent(int EventName, object[] Args = null)
         {
+            switch (EventName)
+            {
+                case 0:
+                    return null;
+            }
+
+            return null;
+
         }
 
         public void createCard()
