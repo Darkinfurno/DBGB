@@ -31,6 +31,14 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void cardEvent(int EventName)
         {
+            switch (EventName)
+            {
+                case 0:
+                    break;
+            }
+
+
+
         }
 
         public void createCard()
