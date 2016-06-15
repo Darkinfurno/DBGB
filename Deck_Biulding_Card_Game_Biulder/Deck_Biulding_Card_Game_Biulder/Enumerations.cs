@@ -18,10 +18,17 @@ namespace Deck_Biulding_Card_Game_Biulder
         TypeDraw
     }
 
-    public enum effectConditions
+    public enum effectConditionsText
     {
         none,
         same,
         different,
+    }
+
+    public enum effectConditionValue
+    {
+        none,
+        even,
+        odd
     }
 }
