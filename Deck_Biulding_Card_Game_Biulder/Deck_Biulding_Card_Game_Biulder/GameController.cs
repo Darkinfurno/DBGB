@@ -12,6 +12,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         List<GameDeck> mainDeckList;
         List<Card> removedCards;
         List<Card> startingHand;
+        int player = 0;
 
         //Events need to be able to link together Exp. peek at top 2 cards draw if different types draw = peekSelf * 2 + typeDifDraw maybe have events take arguments of type object and cast to type expected?
         enum events { draw, typeDifDraw, typeSameDraw, peekSelf, peekMain, OddDraw, EvenDraw, TypeDraw,  }
@@ -32,15 +33,63 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
-        public Object cardEvent(int EventName, object[] Args = null)
+        public void playCard(Card cd)
+        {
+           
+        }
+
+
+        public object cardEvent(events EventName)
+        {
+
+        }
+
+        public object cardEvent(events EventName, int[] Args)
         {
             switch (EventName)
             {
-                case 0:
+                case events.draw:
+                    {
+                        int times = 0;
+                        do
+                        {
+
+                            playerList[player].draw();
+
+                        } while (Args != null || Args[0] != ++times);
+                    }
                     return null;
             }
 
             return null;
+        }
+
+        public object cardEvent(events EventName, string[] Args)
+        {
+            switch (EventName)
+            {
+                case events.TypeDraw:
+                    {
+                        int indexEnd = 1;
+                        var newArray = new int[Args.Length - 1];
+                        Array.Copy(Args, 1, newArray, 0, newArray.Length);
+                        
+                        if (newArray.Distinct().Count() == newArray.Count() && Args[0] == "Different" ||
+                            newArray.Distinct().Count() == 1 && Args[0] == "Same")
+                        {
+                            playerList[player].draw();
+                        }
+{
+                    }
+            }
+
+        }
+
+        public object cardEvent(events EventName, Card[] Args)
+        {
+            switch (EventName)
+            {
+            }
 
         }
 
