@@ -33,18 +33,31 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
-        public void playCard(Card cd)
+        public void PlayCardAt(int aIndex)
         {
-           
+            Card lPlayedCard = playerList[player].playcard(aIndex);
+            
+            foreach (CardEffect cef in lPlayedCard.Effects)
+            {
+                
+                switch (cef.Effect)
+                {
+                    case events.draw
+
+                        case events.peekMain
+                }
+                cef.Effect
+
+            }
         }
 
 
-        public object cardEvent(events EventName)
+        public object cardEvent()
         {
 
         }
 
-        public object cardEvent(events EventName, int[] Args)
+        public object cardEvent(int[] Args)
         {
             switch (EventName)
             {
@@ -64,7 +77,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             return null;
         }
 
-        public object cardEvent(events EventName, string[] Args)
+        public object cardEvent(string[] Args)
         {
             switch (EventName)
             {
@@ -85,7 +98,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         }
 
-        public object cardEvent(events EventName, Card[] Args)
+        public object cardEvent(Card[] Args)
         {
             switch (EventName)
             {

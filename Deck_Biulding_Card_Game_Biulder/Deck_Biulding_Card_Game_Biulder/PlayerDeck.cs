@@ -8,7 +8,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public class PlayerDeck : DeckBaseClass
     {
-        List<Card> played = new List<Card>();
+        List<Card> playedCards = new List<Card>();
 
         public void discard(Card card)
         {
@@ -17,11 +17,11 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
         public void endTurn()
         {
-            foreach(Card card in played)
+            foreach (Card card in playedCards)
             {
                 RemovedCards.Add(card);
             }
-            played.Clear();
+            playedCards.Clear();
             foreach (Card card in AvailableCards)
             {
                 RemovedCards.Add(card);
@@ -34,6 +34,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             Card played = AvailableCards[index];
             AvailableCards.RemoveAt(index);
+            playedCards.Add(played);
             return played;
         }
 
@@ -51,5 +52,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             DeckList = shuffle(RemovedCards);
             RemovedCards.Clear();
         }
+
     }
 }

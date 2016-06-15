@@ -17,4 +17,11 @@ namespace Deck_Biulding_Card_Game_Biulder
         EvenDraw, 
         TypeDraw
     }
+
+    public enum effectConditions
+    {
+        none,
+        same,
+        different,
+    }
 }
