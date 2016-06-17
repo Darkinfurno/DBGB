@@ -6,29 +6,48 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    public enum events 
-    { 
-        draw,
-        typeDifDraw, 
-        typeSameDraw, 
-        peekSelf, 
-        peekMain, 
-        OddDraw, 
-        EvenDraw, 
-        TypeDraw
+    // requires matching || action || peeking condition make
+    public enum events
+    {
+        Draw,
+        DrawIfEvenOdd,
+        DrawIfTypesMatch,
+        DrawIfType,
+        Peek,
+        Discard,
+        DiscardIfEvenOdd,
+        DiscardIfCostZero,
+        DiscardIfCostNotZero,
+        DiscardOfType,
+        AquireFreeCard // Figure Out how later
     }
 
-    public enum effectConditionsText
+    public enum Text
     {
         none,
         same,
         different,
     }
 
-    public enum effectConditionValue
+    public enum Value
     {
         none,
         even,
         odd
+    }
+
+    public enum Target
+    {
+        self,
+        others,
+        main,
+        allPlayers
+    }
+
+    public enum TargetDeck
+    {
+        availableCards,
+        removedCards,
+        deck
     }
 }

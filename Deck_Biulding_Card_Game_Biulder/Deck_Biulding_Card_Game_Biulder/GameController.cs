@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    public class GameController
+    public partial class GameController
     {
         List<PlayerDeck> playerList;
         List<GameDeck> mainDeckList;
@@ -42,69 +42,16 @@ namespace Deck_Biulding_Card_Game_Biulder
                 
                 switch (cef.Effect)
                 {
-                    case events.draw
+                    case events.Draw:
+                        break;
 
-                        case events.peekMain
+                     
                 }
-                cef.Effect
+                
 
             }
         }
 
-
-        public object cardEvent()
-        {
-
-        }
-
-        public object cardEvent(int[] Args)
-        {
-            switch (EventName)
-            {
-                case events.draw:
-                    {
-                        int times = 0;
-                        do
-                        {
-
-                            playerList[player].draw();
-
-                        } while (Args != null || Args[0] != ++times);
-                    }
-                    return null;
-            }
-
-            return null;
-        }
-
-        public object cardEvent(string[] Args)
-        {
-            switch (EventName)
-            {
-                case events.TypeDraw:
-                    {
-                        int indexEnd = 1;
-                        var newArray = new int[Args.Length - 1];
-                        Array.Copy(Args, 1, newArray, 0, newArray.Length);
-                        
-                        if (newArray.Distinct().Count() == newArray.Count() && Args[0] == "Different" ||
-                            newArray.Distinct().Count() == 1 && Args[0] == "Same")
-                        {
-                            playerList[player].draw();
-                        }
-{
-                    }
-            }
-
-        }
-
-        public object cardEvent(Card[] Args)
-        {
-            switch (EventName)
-            {
-            }
-
-        }
 
         public void createCard()
         {

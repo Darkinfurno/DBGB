@@ -8,16 +8,16 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public abstract class DeckBaseClass
     {
-        protected List<Card> DeckList = new List<Card>();
+        protected List<Card> Deck = new List<Card>();
         protected List<Card> AvailableCards = new List<Card>();
         protected List<Card> RemovedCards = new List<Card>();
         protected int availableNum;
         public void draw()
         {
-            if (DeckList.Count > 0)
+            if (Deck.Count > 0)
             {
-                AvailableCards.Add(DeckList[0]);
-                DeckList.RemoveAt(0);
+                AvailableCards.Add(Deck[0]);
+                Deck.RemoveAt(0);
                 return;
             }
             drawAttemptFinish();

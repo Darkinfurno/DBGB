@@ -40,7 +40,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public override void drawAttemptFinish()
         {
-            if (DeckList.Count + RemovedCards.Count != 0)
+            if (Deck.Count + RemovedCards.Count != 0)
             {
                 shuffleDeck();
                 draw();
@@ -49,7 +49,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void shuffleDeck()
         {
-            DeckList = shuffle(RemovedCards);
+            Deck = shuffle(RemovedCards);
             RemovedCards.Clear();
         }
 

@@ -8,18 +8,20 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     class GameDeck : DeckBaseClass
     {
+        public bool refillAtTurnChange = true;
         List<Card> ShowList = new List<Card>();
+        
         public bool Refill()
         {
             while(AvailableCards.Count < AvailableCards.Count)
             {
-                if (DeckList.Count == 0)
+                if (Deck.Count == 0)
                 {
                     return false;
                 }
                 
-                Card temp = DeckList[0];
-                DeckList.RemoveAt(0);
+                Card temp = Deck[0];
+                Deck.RemoveAt(0);
                 AvailableCards.Add(temp);
             }
             return true;
@@ -30,13 +32,13 @@ namespace Deck_Biulding_Card_Game_Biulder
             
             for(int i = 0;i < number; i++)
             {
-                if (DeckList.Count == 0)
+                if (Deck.Count == 0)
                 {
                     return false;
                 }
 
-                ShowList.Add(DeckList[0]);
-                DeckList.RemoveAt(0);
+                ShowList.Add(Deck[0]);
+                Deck.RemoveAt(0);
             }
             return true;
         }
@@ -45,14 +47,14 @@ namespace Deck_Biulding_Card_Game_Biulder
             int number = ShowList.Count;
             for (int i = 0; i < number; i++)
             {
-                DeckList.Add(ShowList[0]);
+                Deck.Add(ShowList[0]);
                 ShowList.RemoveAt(0);
             }
         }
 
         public void GameStartUp()
         {
-            DeckList = shuffle(DeckList);
+            Deck = shuffle(Deck);
         }
 
         public override void drawAttemptFinish()
