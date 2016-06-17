@@ -44,7 +44,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         allPlayers
     }
 
-    public enum TargetDeck
+    public enum TargetDeckType
     {
         availableCards,
         removedCards,

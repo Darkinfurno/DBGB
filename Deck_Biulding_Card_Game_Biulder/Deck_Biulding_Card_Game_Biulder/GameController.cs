@@ -43,13 +43,45 @@ namespace Deck_Biulding_Card_Game_Biulder
                 switch (cef.Effect)
                 {
                     case events.Draw:
+                        cardEventDraw(cef);
                         break;
+                    case events.AquireFreeCard:
 
+                        break;
+                    case events.Discard:
+
+                        break;
+                    case events.DiscardIfCostNotZero:
+
+                        break;
+                    case events.DiscardIfCostZero:
+
+                        break;
+                    case events.DiscardIfEvenOdd:
+
+                        break;
+                    case events.DiscardOfType:
+
+                        break;
+                    case events.DrawIfEvenOdd:
+
+                        break;
+                    case events.DrawIfType:
+
+                        break;
+                    case events.DrawIfTypesMatch:
+
+                        break;
+                    case events.Peek:
+
+                        break;
                      
                 }
                 
-
             }
+
+            playerList[player].
+
         }
 
 
