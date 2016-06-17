@@ -23,16 +23,26 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public string 
+        public effectConditionsText EffectConditionsText
         {
             get;
             private set;
         }
 
-        public CardEffect(events ev, int num)
+        public effectConditionValue EffectConditionsValue
+        {
+            get;
+            private set;
+        }
+
+        public CardEffect(events ev, int num,
+            effectConditionsText ect = effectConditionsText.none,
+            effectConditionValue ecv = effectConditionValue.none)
         {
             Effect = ev;
             NumberOfEffects = num;
+            EffectConditionsText = ect;
+            EffectConditionsValue = ecv;
         }
     }
 }
