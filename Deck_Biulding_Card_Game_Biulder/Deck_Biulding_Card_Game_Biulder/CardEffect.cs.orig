@@ -11,6 +11,8 @@ namespace Deck_Biulding_Card_Game_Biulder
     /// </summary>
     public class CardEffect
     {
+        public Text AdditionText = Text.none;
+        public Value ConditionalValue = Value.none;
 
         public events Effect
         {
@@ -24,21 +26,25 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public Text EffectConditionsText
+<<<<<<< HEAD
+        
+=======
+        public effectConditionsText EffectConditionsText
         {
             get;
             private set;
         }
+>>>>>>> origin/Alex
 
-        public Value EffectConditionsValue
+        public effectConditionValue EffectConditionsValue
         {
             get;
             private set;
         }
 
         public CardEffect(events ev, int num,
-            Text ect = Text.none,
-            Value ecv = Value.none)
+            effectConditionsText ect = effectConditionsText.none,
+            effectConditionValue ecv = effectConditionValue.none)
         {
             Effect = ev;
             NumberOfEffects = num;
