@@ -15,10 +15,12 @@ namespace Deck_Biulding_Card_Game_Biulder
         DrawIfType,
         Peek,
         Discard,
+        DiscardRandom,
         DiscardIfEvenOdd,
         DiscardIfCostZero,
         DiscardIfCostNotZero,
         DiscardOfType,
+        Destroy,
         AquireFreeCard // Figure Out how later
     }
 

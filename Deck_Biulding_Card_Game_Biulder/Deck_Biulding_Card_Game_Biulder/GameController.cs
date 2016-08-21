@@ -75,12 +75,13 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.Peek:
 
                         break;
+                    case events.Destroy:
+
+                        break;
                      
                 }
                 
             }
-
-            playerList[player].
 
         }
 
