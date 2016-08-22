@@ -21,14 +21,17 @@ namespace Deck_Biulding_Card_Game_Biulder
         DiscardIfCostNotZero,
         DiscardOfType,
         Destroy,
-        AquireFreeCard // Figure Out how later
+        DestroyRandom,
+        PassCard,
+        AquireFreeCard,
+        winIf
     }
 
     public enum Text
     {
         none,
         same,
-        different,
+        different
     }
 
     public enum Value
@@ -43,7 +46,9 @@ namespace Deck_Biulding_Card_Game_Biulder
         self,
         others,
         main,
-        allPlayers
+        allPlayers,
+        playerLeft,
+        playerRight
     }
 
     public enum TargetDeckType

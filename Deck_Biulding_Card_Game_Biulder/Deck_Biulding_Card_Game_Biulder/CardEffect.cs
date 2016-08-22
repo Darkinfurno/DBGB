@@ -24,6 +24,18 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
+        public int FreeValue
+        {
+            get;
+            private set;
+        }
+
+        public bool FreeByTotalValue // true = any number of cards : false = only one card
+        {
+            get;
+            private set;
+        }
+
         public Text EffectConditionsText
         {
             get;

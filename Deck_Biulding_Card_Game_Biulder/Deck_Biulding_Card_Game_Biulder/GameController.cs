@@ -78,7 +78,16 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.Destroy:
 
                         break;
-                     
+                    case events.DestroyRandom:
+
+                        break;
+                    case events.PassCard:
+
+                        break;
+                    case events.winIf:
+
+                        break;
+
                 }
                 
             }
