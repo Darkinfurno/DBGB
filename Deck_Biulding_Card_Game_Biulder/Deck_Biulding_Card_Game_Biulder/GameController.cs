@@ -11,35 +11,37 @@ namespace Deck_Biulding_Card_Game_Biulder
         List<PlayerDeck> playerList;
         List<GameDeck> mainDeckList;
         List<Card> removedCards;
-        List<Card> startingHand;
+        List<Card> startingDeck;
+        List<Card> selectedOrTempCards;
         int player = 0;
 
         //Events need to be able to link together Exp. peek at top 2 cards draw if different types draw = peekSelf * 2 + typeDifDraw maybe have events take arguments of type object and cast to type expected?
-        
+
 
         public GameController()
         {
             playerList = new List<PlayerDeck>();
             mainDeckList = new List<GameDeck>();
             removedCards = new List<Card>();
-            startingHand = new List<Card>();
+            startingDeck = new List<Card>();
+            selectedOrTempCards = new List<Card>(); //May need to move this gets reset lots ;)
         }
 
         public void addStarterCard(Card card, int amount)
         {
             for (int i = 0; i < amount; i++)
             {
-                startingHand.Add(card);
+                startingDeck.Add(card);
             }
         }
 
         public void PlayCardAt(int aIndex)
         {
             Card lPlayedCard = playerList[player].playcard(aIndex);
-            
+
             foreach (CardEffect cef in lPlayedCard.Effects)
             {
-                
+
                 switch (cef.Effect)
                 {
                     case events.Draw:
@@ -67,10 +69,10 @@ namespace Deck_Biulding_Card_Game_Biulder
 
                         break;
                     case events.DrawIfType:
-
+                        cardEventTypeBasedDraw(cef, getAllTypes(selectedOrTempCards));
                         break;
                     case events.DrawIfTypesMatch:
-
+                        cardEventTypeBasedDraw(cef, getAllTypes(selectedOrTempCards));
                         break;
                     case events.Peek:
 
@@ -87,11 +89,27 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.winIf:
 
                         break;
+                    case events.DrawDiscardedAboveBelowValue:
+
+                        break;
+                    case events.DrawDiscardedType:
+
+                        break;
 
                 }
-                
+
             }
 
+        }
+
+        public string[] getAllTypes(List<Card> cards)
+        {
+            List<string> temp = new List<string>();
+            foreach (Card card in cards)
+            {
+                temp.Add(card.Type);
+            }
+            return temp.ToArray();
         }
 
 

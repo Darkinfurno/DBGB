@@ -36,7 +36,13 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public Text EffectConditionsText
+        public string EffectConditionText
+        {
+            get;
+            private set; 
+        }
+
+        public MatchCondition EffectMatchCondition
         {
             get;
             private set;
@@ -61,12 +67,12 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         public CardEffect(events ev, int num,
-            Text ect = Text.none,
+            MatchCondition ect = MatchCondition.none,
             Value ecv = Value.none)
         {
             Effect = ev;
             NumberOfEffects = num;
-            EffectConditionsText = ect;
+            EffectMatchCondition = ect;
             EffectConditionsValue = ecv;
         }
     }

@@ -13,6 +13,8 @@ namespace Deck_Biulding_Card_Game_Biulder
         DrawIfEvenOdd,
         DrawIfTypesMatch,
         DrawIfType,
+        DrawDiscardedAboveBelowValue,
+        DrawDiscardedType,
         Peek,
         Discard,
         DiscardRandom,
@@ -27,7 +29,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         winIf
     }
 
-    public enum Text
+    public enum MatchCondition
     {
         none,
         same,
@@ -56,5 +58,12 @@ namespace Deck_Biulding_Card_Game_Biulder
         availableCards,
         removedCards,
         deck
+    }
+
+    public enum ValueRange
+    {
+        none,
+        above,
+        below
     }
 }

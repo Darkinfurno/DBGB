@@ -18,6 +18,13 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
+        // Represents the type or some other designation of the Card
+        public string Type
+        {
+            get;
+            private set;
+        }
+
         // Represents how many points the card is worth at the end of the game to determine winner
         public int Points
         {
