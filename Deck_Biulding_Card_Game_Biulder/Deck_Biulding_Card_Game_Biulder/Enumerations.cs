@@ -26,7 +26,8 @@ namespace Deck_Biulding_Card_Game_Biulder
         DestroyRandom,
         PassCard,
         AquireFreeCard,
-        winIf
+        winIf,
+        endEffect
     }
 
     public enum MatchCondition

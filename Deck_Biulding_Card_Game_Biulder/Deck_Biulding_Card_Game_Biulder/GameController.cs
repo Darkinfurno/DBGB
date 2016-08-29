@@ -95,6 +95,9 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.DrawDiscardedType:
 
                         break;
+                    case events.endEffect:
+                        selectedOrTempCards.Clear();
+                        break;
 
                 }
 

@@ -11,7 +11,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void cardEventDraw(CardEffect effect)
         {
-            for(int i = 0; i< effect.NumberOfEffects;i++)
+            for (int i = 0; i < effect.NumberOfEffects; i++)
             {
                 playerList[player].draw();
 
@@ -27,9 +27,36 @@ namespace Deck_Biulding_Card_Game_Biulder
             {
                 cardEventDraw(effect);
             }
-            else if(Args.Count() == 1 && effect.EffectConditionText == Args[0])
+            else if (Args.Count() == 1 && effect.EffectConditionText == Args[0])
             {
                 cardEventDraw(effect);
+            }
+
+        }
+
+        public void processPeek(CardEffect effect)
+        {
+            List<Card> Temp;
+            //main deck, my deck, all other players, player left, player right, (not all players)
+            if (effect.EffectConditionsTarget == Target.self || effect.EffectConditionsTarget == Target.allPlayers)
+            {
+                Temp = playerList[player].Show(effect.NumberOfEffects);
+                foreach (Card c in Temp)
+                {
+                    selectedOrTempCards.Add(c);
+                }
+            }
+            else if(effect.EffectConditionsTarget == Target.others)
+            {
+                for(int i = 0; i < playerList.Count(); i++)
+                {
+                    if (player == i) i++;
+                    Temp = playerList[i].Show(effect.NumberOfEffects);
+                }
+                foreach (Card c in Temp)
+                {
+                    selectedOrTempCards.Add(c);
+                }
             }
 
         }

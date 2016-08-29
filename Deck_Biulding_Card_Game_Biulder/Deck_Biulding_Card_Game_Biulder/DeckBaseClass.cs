@@ -8,9 +8,9 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public abstract class DeckBaseClass
     {
-        protected List<Card> Deck = new List<Card>();
-        protected List<Card> AvailableCards = new List<Card>();
-        protected List<Card> RemovedCards = new List<Card>();
+        protected List<Card> Deck = new List<Card>();           //Deck
+        protected List<Card> AvailableCards = new List<Card>(); //Hand
+        protected List<Card> RemovedCards = new List<Card>();   //Discard
         protected List<Card> ShowList = new List<Card>();
         protected int availableNum;
         public void draw()
@@ -40,36 +40,42 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
         public abstract void drawAttemptFinish();
 
-        public List<Card> shuffle(List<Card> Deck)
+        public void shuffle()
         {
-            List<Card> source = Deck;
+            List<Card> source = RemovedCards;
             var rnd = new Random();
             var result = source.OrderBy(item => rnd.Next());
-            return (List<Card>)result;
+            Deck = (List<Card>)result;
+            RemovedCards.Clear();
         }
 
-        public bool Show(int number = 1)
+        public List<Card> Show(int number = 1)
         {
-
+            bool checkEmpty = true;
             for (int i = 0; i < number; i++)
             {
-                if (Deck.Count == 0)
+                if (Deck.Count == 0  && checkEmpty)
                 {
-                    return false;
+                    shuffle();
+                }
+                else if (Deck.Count == 0)
+                {
+
+                    return ShowList;
                 }
 
                 ShowList.Add(Deck[0]);
                 Deck.RemoveAt(0);
             }
-            return true;
+            return ShowList;
         }
         public void ReturnShown()
         {
             foreach (Card c in ShowList)
             {
                 Deck.Add(c);
-                ShowList.Remove(c);
             }
+            ShowList.Clear();
         }
     }
 }
