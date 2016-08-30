@@ -66,6 +66,12 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
+        public TargetDeckType SelfTargetedDeckType
+        {
+            get;
+            private set;
+        }
+
         public CardEffect(events ev, int num,
             MatchCondition ect = MatchCondition.none,
             Value ecv = Value.none)

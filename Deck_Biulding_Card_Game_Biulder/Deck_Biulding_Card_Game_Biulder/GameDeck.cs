@@ -29,7 +29,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void GameStartUp()
         {
-            Deck = shuffle(Deck);
+            shuffle();
         }
 
         public override void drawAttemptFinish()

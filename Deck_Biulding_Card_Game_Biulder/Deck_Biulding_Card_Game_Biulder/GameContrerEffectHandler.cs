@@ -36,7 +36,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void processPeek(CardEffect effect)
         {
-            List<Card> Temp;
+            List<Card> Temp = new List<Card>();
             //main deck, my deck, all other players, player left, player right, (not all players)
             if (effect.EffectConditionsTarget == Target.self || effect.EffectConditionsTarget == Target.allPlayers)
             {
@@ -46,7 +46,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                     selectedOrTempCards.Add(c);
                 }
             }
-            else if(effect.EffectConditionsTarget == Target.others)
+            else if(effect.EffectConditionsTarget == Target.others || effect.EffectConditionsTarget == Target.allPlayers)
             {
                 for(int i = 0; i < playerList.Count(); i++)
                 {
@@ -58,7 +58,33 @@ namespace Deck_Biulding_Card_Game_Biulder
                     selectedOrTempCards.Add(c);
                 }
             }
+            else if(effect.EffectConditionsTarget == Target.playerLeft)
+            {
+                int numPlayers = playerList.Count();
+                Temp = playerList[(player + numPlayers - 1) % numPlayers].Show(effect.NumberOfEffects);
+                foreach (Card c in Temp)
+                {
+                    selectedOrTempCards.Add(c);
+                }
+            }
+            else if (effect.EffectConditionsTarget == Target.playerRight)
+            {
+                int numPlayers = playerList.Count();
+                Temp = playerList[(player + numPlayers + 1) % numPlayers].Show(effect.NumberOfEffects);
+                foreach (Card c in Temp)
+                {
+                    selectedOrTempCards.Add(c);
+                }
+            }
+        }
 
+        public List<Card> getFreeCard(CardEffect effect)
+        {
+            List<Card> aquired = new List<Card>();
+
+
+
+            return aquired;
         }
 
     }

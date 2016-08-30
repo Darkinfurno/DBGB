@@ -25,6 +25,27 @@ namespace Deck_Biulding_Card_Game_Biulder
             
         }
 
+        public void addCardsTo(List<Card> cards, TargetDeckType target)
+        {
+            List<Card> addTo;
+            switch (target)
+            {
+                case TargetDeckType.availableCards:
+                    addTo = AvailableCards;
+                    break;
+                case TargetDeckType.deck:
+                    addTo = Deck;
+                    break;
+                case TargetDeckType.removedCards:
+                    addTo = RemovedCards;
+                    break;
+                default:
+                    addTo = new List<Card>();
+                    break;
+            }
+            addTo.InsertRange(0, cards);
+        }
+
         public void refillCards()
         {
             while (AvailableCards.Count < availableNum)
@@ -73,7 +94,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             foreach (Card c in ShowList)
             {
-                Deck.Add(c);
+                Deck.Insert(0,c);
             }
             ShowList.Clear();
         }
