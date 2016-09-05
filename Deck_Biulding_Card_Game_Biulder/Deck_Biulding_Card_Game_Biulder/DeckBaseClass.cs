@@ -8,10 +8,10 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public abstract class DeckBaseClass
     {
-        protected List<Card> Deck = new List<Card>();           //Deck
-        protected List<Card> AvailableCards = new List<Card>(); //Hand
-        protected List<Card> RemovedCards = new List<Card>();   //Discard
-        protected List<Card> ShowList = new List<Card>();
+        protected List<Card> Deck = new List<Card>();           //Deck      Deck
+        protected List<Card> AvailableCards = new List<Card>(); //Hand      Buyable
+        protected List<Card> RemovedCards = new List<Card>();   //Discard   Destroyed
+        protected List<Card> ShowList = new List<Card>();       //peeking   peeking
         protected int availableNum;
         public void draw()
         {
@@ -97,6 +97,25 @@ namespace Deck_Biulding_Card_Game_Biulder
                 Deck.Insert(0,c);
             }
             ShowList.Clear();
+        }
+
+        public Card destroy(bool random,int location = 0)
+        {
+            if (random)
+            {
+                int numOfAvailable = AvailableCards.Count();
+                Random rdm = new Random();
+                int index = rdm.Next(0, numOfAvailable);
+                Card destroyed = AvailableCards[index];
+                AvailableCards.RemoveAt(index);
+                return destroyed;
+            }
+            else
+            {
+                Card destroyed = AvailableCards[location];
+                AvailableCards.RemoveAt(location);
+                return destroyed;
+            }
         }
     }
 }

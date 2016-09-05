@@ -29,6 +29,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             get;
             private set;
         }
+        public int targetIndexLocation { get; private set; }
 
         public bool FreeByTotalValue // true = any number of cards : false = only one card
         {

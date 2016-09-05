@@ -46,9 +46,9 @@ namespace Deck_Biulding_Card_Game_Biulder
                     selectedOrTempCards.Add(c);
                 }
             }
-            else if(effect.EffectConditionsTarget == Target.others || effect.EffectConditionsTarget == Target.allPlayers)
+            else if (effect.EffectConditionsTarget == Target.others || effect.EffectConditionsTarget == Target.allPlayers)
             {
-                for(int i = 0; i < playerList.Count(); i++)
+                for (int i = 0; i < playerList.Count(); i++)
                 {
                     if (player == i) i++;
                     Temp = playerList[i].Show(effect.NumberOfEffects);
@@ -58,7 +58,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                     selectedOrTempCards.Add(c);
                 }
             }
-            else if(effect.EffectConditionsTarget == Target.playerLeft)
+            else if (effect.EffectConditionsTarget == Target.playerLeft)
             {
                 int numPlayers = playerList.Count();
                 Temp = playerList[(player + numPlayers - 1) % numPlayers].Show(effect.NumberOfEffects);
@@ -81,13 +81,55 @@ namespace Deck_Biulding_Card_Game_Biulder
         public List<Card> getFreeCard(CardEffect effect)
         {
             List<Card> aquired = new List<Card>();
+            int value = effect.FreeValue;
+            int numCards = effect.NumberOfEffects;
+            //Get free cards from main deck 1,2,3
 
+            List<Card> available = mainDeckList[effect.targetIndexLocation].getBuyableCards();
+            Card selected;
+            List<int> selectedIndex;
+
+            //TODO
+            //Need interface for buying cards
+
+            if (effect.NumberOfEffects > 1)
+            {
+
+            }
+            else
+            {
+
+            }
 
 
             return aquired;
         }
 
-    }
+        public void destroyRandomCard(CardEffect effect)
+        {
+            bool fullLoop = true;
+            bool otherOnly = effect.EffectConditionsTarget == Target.others;
+            bool selfOnly = effect.EffectConditionsTarget == Target.self;
+            if (otherOnly) fullLoop = false;
+            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
 
+            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop ; i++)
+            {
+                if (selfOnly) i = player;
+                if (i < playerList.Count) i = 0;
+                if (i == player || (i == prePlayer && otherOnly))
+                {
+                    fullLoop = false;
+                }
+                for (int j = 0; j < effect.NumberOfEffects; j++)
+                {
+                    Card destroyed = playerList[i].destroy(true);
+                    mainDeckList[0].addToDestroyed(destroyed);
+                }
+
+            }
+
+        }
+    }
 }
 

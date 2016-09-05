@@ -75,7 +75,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         cardEventTypeBasedDraw(cef, getAllTypes(selectedOrTempCards));
                         break;
                     case events.Peek:
-
+                        processPeek(cef);
                         break;
                     case events.Destroy:
 

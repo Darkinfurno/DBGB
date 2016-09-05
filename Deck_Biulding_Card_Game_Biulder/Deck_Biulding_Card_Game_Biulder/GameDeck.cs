@@ -37,5 +37,15 @@ namespace Deck_Biulding_Card_Game_Biulder
             //End Game
             throw new NotImplementedException();
         }
+
+        public List<Card> getBuyableCards()
+        {
+            return AvailableCards;
+        }
+
+        public void addToDestroyed(Card card)
+        {
+            RemovedCards.Add(card);
+        }
     }
 }
