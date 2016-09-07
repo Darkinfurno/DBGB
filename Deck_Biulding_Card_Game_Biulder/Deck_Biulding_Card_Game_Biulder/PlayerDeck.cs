@@ -49,7 +49,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void shuffleDeck()
         {
-            Deck = shuffle(RemovedCards);
+            shuffle();
             RemovedCards.Clear();
         }
 

@@ -67,4 +67,12 @@ namespace Deck_Biulding_Card_Game_Biulder
         above,
         below
     }
+
+    public enum special
+    {
+        none,
+        attack,
+        defend,
+        oneTimeAttack
+    }
 }

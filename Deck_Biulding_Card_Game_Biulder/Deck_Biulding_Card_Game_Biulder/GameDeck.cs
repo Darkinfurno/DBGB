@@ -30,6 +30,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         public void GameStartUp()
         {
             shuffle();
+            refillCards();
         }
 
         public override void drawAttemptFinish()
