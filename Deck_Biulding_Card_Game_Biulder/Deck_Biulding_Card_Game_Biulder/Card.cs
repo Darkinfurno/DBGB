@@ -33,11 +33,11 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         // Identification number for Card Object
-        public int ID
-        {
-            get;
-            private set;
-        }
+        //public int ID
+        //{
+        //    get;
+        //    private set;
+        //}
 
         // Integer to represent the current owner of the card
         public int Owner
@@ -60,12 +60,13 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         // Card Constructor
-        public Card(string aName, string aType,int aPoints, int aID, int aOwner, List<CardEffect> aCardEffects = null, List<CardEffect> aCardSpecialEffects = null)
+        //public Card(string aName, string aType,int aPoints, int aID, int aOwner, List<CardEffect> aCardEffects = null, List<CardEffect> aCardSpecialEffects = null)
+        public Card(string aName, string aType, int aPoints, int aOwner, List<CardEffect> aCardEffects = null, List<CardEffect> aCardSpecialEffects = null)
         {
             this.Name = aName;
             this.Type = aType;
             this.Points = aPoints;
-            this.ID = aID;
+            //this.ID = aID;
             this.Owner = aOwner;
             if (aCardEffects == null)
             {
@@ -78,10 +79,10 @@ namespace Deck_Biulding_Card_Game_Biulder
                 this.SpecialEffects = new List<CardEffect>();
             }
             else this.SpecialEffects = aCardSpecialEffects;
-            
-  
+
+
         }
-        
+
         public void addEffect(events aEffect, int aTimes)
         {
             Effects.Add(new CardEffect(aEffect, aTimes));

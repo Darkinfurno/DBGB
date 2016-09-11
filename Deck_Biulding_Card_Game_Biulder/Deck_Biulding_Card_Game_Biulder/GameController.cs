@@ -119,5 +119,10 @@ namespace Deck_Biulding_Card_Game_Biulder
         public void createCard()
         {
         }
+
+        public Card selectCard()
+        {
+            return new Card("Example","",0,-1);
+        }
     }
 }
