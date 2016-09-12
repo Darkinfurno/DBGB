@@ -15,6 +15,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         DrawIfType,
         DrawDiscardedAboveBelowValue,
         DrawDiscardedType,
+        DrawDiscardedTypeAboveBelowValue,
         Peek,
         Discard,
         DiscardRandom,

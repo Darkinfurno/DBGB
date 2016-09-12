@@ -43,7 +43,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 Temp = playerList[player].Show(effect.NumberOfEffects);
                 foreach (Card c in Temp)
                 {
-                    selectedOrTempCards.Add(c);
+                    selectFromCards.Add(c);
                 }
             }
             else if (effect.EffectConditionsTarget == Target.others || effect.EffectConditionsTarget == Target.allPlayers)
@@ -55,7 +55,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 }
                 foreach (Card c in Temp)
                 {
-                    selectedOrTempCards.Add(c);
+                    selectFromCards.Add(c);
                 }
             }
             else if (effect.EffectConditionsTarget == Target.playerLeft)
@@ -64,7 +64,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 Temp = playerList[(player + numPlayers - 1) % numPlayers].Show(effect.NumberOfEffects);
                 foreach (Card c in Temp)
                 {
-                    selectedOrTempCards.Add(c);
+                    selectFromCards.Add(c);
                 }
             }
             else if (effect.EffectConditionsTarget == Target.playerRight)
@@ -73,7 +73,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 Temp = playerList[(player + numPlayers + 1) % numPlayers].Show(effect.NumberOfEffects);
                 foreach (Card c in Temp)
                 {
-                    selectedOrTempCards.Add(c);
+                    selectFromCards.Add(c);
                 }
             }
         }
@@ -100,7 +100,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             {
 
             }
-
 
             return aquired;
         }
@@ -130,6 +129,8 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
 
         }
+
+        public void AquireCardFromMain()
     }
 }
 

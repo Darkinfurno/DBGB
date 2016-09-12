@@ -11,6 +11,13 @@ namespace Deck_Biulding_Card_Game_Biulder
     /// </summary>
     public class Card
     {
+        // Represents the cost of the Card
+        public List<int> Cost
+        {
+            get;
+            private set;
+        }
+
         // Represents the name of the Card
         public string Name
         {

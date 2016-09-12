@@ -12,8 +12,11 @@ namespace Deck_Biulding_Card_Game_Biulder
         List<GameDeck> mainDeckList;
         List<Card> removedCards;
         List<Card> startingDeck;
-        List<Card> selectedOrTempCards;
+        List<Card> selectFromCards;
+        List<int> buyPower;
         int player = 0;
+        //Select Cards from effect could work where all cards that are valid to be selected from show up in a list and 1 is selected, if multiple then the form will display again.
+
 
         //Events need to be able to link together Exp. peek at top 2 cards draw if different types draw = peekSelf * 2 + typeDifDraw maybe have events take arguments of type object and cast to type expected?
 
@@ -24,7 +27,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             mainDeckList = new List<GameDeck>();
             removedCards = new List<Card>();
             startingDeck = new List<Card>();
-            selectedOrTempCards = new List<Card>(); //May need to move this gets reset lots ;)
+            selectFromCards = new List<Card>(); //May need to move this gets reset lots ;)
         }
 
         public void addStarterCard(Card card, int amount)
@@ -51,37 +54,37 @@ namespace Deck_Biulding_Card_Game_Biulder
                         playerList[player].addCardsTo(getFreeCard(cef),cef.SelfTargetedDeckType);
                         break;
                     case events.Discard:
-
+                        //cardEventDiscard(cef);
                         break;
                     case events.DiscardIfCostNotZero:
-
+                        //cardEventValueBasedDiscard(cef);
                         break;
                     case events.DiscardIfCostZero:
-
+                        //cardEventValueBasedDiscard(cef);
                         break;
                     case events.DiscardIfEvenOdd:
-
+                        //cardEventValueBasedDiscard(cef);
                         break;
                     case events.DiscardOfType:
-
+                        //cardEventTypeBasedDiscard(cef);
                         break;
                     case events.DrawIfEvenOdd:
-
+                        //cardEventValuebasedDraw(cef);
                         break;
                     case events.DrawIfType:
-                        cardEventTypeBasedDraw(cef, getAllTypes(selectedOrTempCards));
+                        cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
                         break;
                     case events.DrawIfTypesMatch:
-                        cardEventTypeBasedDraw(cef, getAllTypes(selectedOrTempCards));
+                        cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
                         break;
                     case events.Peek:
                         processPeek(cef);
                         break;
                     case events.Destroy:
-
+                        //cardEventDestroy;
                         break;
                     case events.DestroyRandom:
-
+                        destroyRandomCard(cef);
                         break;
                     case events.PassCard:
 
@@ -90,13 +93,16 @@ namespace Deck_Biulding_Card_Game_Biulder
 
                         break;
                     case events.DrawDiscardedAboveBelowValue:
-
+                        //cardEventValueBasedRetrieveDiscarded(cef);
                         break;
                     case events.DrawDiscardedType:
-
+                        //cardEventsTypeBasedDiscard(cef);
+                        break;
+                    case events.DrawDiscardedTypeAboveBelowValue:
+                        //cardEventsValueAndTypeBasedDiscard(cef);
                         break;
                     case events.endEffect:
-                        selectedOrTempCards.Clear();
+                        selectFromCards.Clear();
                         break;
 
                 }
@@ -115,14 +121,25 @@ namespace Deck_Biulding_Card_Game_Biulder
             return temp.ToArray();
         }
 
+        public List<int>[] getAllCosts(List<Card> cards)
+        {
+            List<List<int>> temp = new List<List<int>>();
+            foreach (Card card in cards)
+            {
+                temp.Add(card.Cost);
+            }
+            return temp.ToArray();
+        }
 
         public void createCard()
         {
+
         }
 
         public Card selectCard()
         {
-            return new Card("Example","",0,-1);
+            int selectedIndex = 0;//get index from select card display window
+            return selectFromCards[selectedIndex];
         }
     }
 }
