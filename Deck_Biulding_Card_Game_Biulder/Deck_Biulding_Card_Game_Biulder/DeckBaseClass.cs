@@ -9,8 +9,8 @@ namespace Deck_Biulding_Card_Game_Biulder
     public abstract class DeckBaseClass
     {
         protected List<Card> Deck = new List<Card>();           //Deck      Deck
-        protected List<Card> AvailableCards = new List<Card>(); //Hand      Buyable
-        protected List<Card> RemovedCards = new List<Card>();   //Discard   Destroyed
+        public List<Card> AvailableCards = new List<Card>(); //Hand      Buyable
+        public List<Card> RemovedCards = new List<Card>();   //Discard   Destroyed
         protected List<Card> ShowList = new List<Card>();       //peeking   peeking
         protected int availableNum;
         public void draw()

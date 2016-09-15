@@ -50,11 +50,14 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.Draw:
                         cardEventDraw(cef);
                         break;
-                    case events.AquireFreeCard:
-                        playerList[player].addCardsTo(getFreeCard(cef),cef.SelfTargetedDeckType);
+                    case events.AquireFreeCardByValue:
+                        playerList[player].addCardsTo(getFreeCardByValue(cef), cef.SelfTargetedDeckType);
+                        break;
+                    case events.AquireFreeCardByType:
+                        //playerList[player].addCardsTo(getFreeCardByType(cef), cef.SelfTargetedDeckType);
                         break;
                     case events.Discard:
-                        //cardEventDiscard(cef);
+                        cardEventDiscard(cef);
                         break;
                     case events.DiscardIfCostNotZero:
                         //cardEventValueBasedDiscard(cef);
@@ -84,7 +87,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         //cardEventDestroy;
                         break;
                     case events.DestroyRandom:
-                        destroyRandomCard(cef);
+                        cardEventdestroyRandomCard(cef);
                         break;
                     case events.PassCard:
 
@@ -111,6 +114,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         }
 
+
         public string[] getAllTypes(List<Card> cards)
         {
             List<string> temp = new List<string>();
@@ -136,10 +140,29 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         }
 
-        public Card selectCard()
+        //Must Select is a determinating factor if the cancel button is active on the form.
+        public Card selectCard(bool mustSelect, int targetPlayer)
         {
             int selectedIndex = 0;//get index from select card display window
-            return selectFromCards[selectedIndex];
+            bool cancel = false; // if selection is canceled then no card is returned or in this case a null card
+            //Call to display selectable cards Form
+
+
+            if (cancel) return null;
+            Card selected = selectFromCards[selectedIndex];
+            selectFromCards.RemoveAt(selectedIndex);
+            return selected;
+        }
+
+        public int selectCardIndex(bool mustSelect, int targetPlayer)
+        {
+            int selectedIndex = 0;//get index from select card display window
+            bool cancel = false; // if selection is canceled then no card is returned or in this case a null card
+             //Call to display selectable cards Form
+
+
+            if (cancel) return null;
+            return selectedIndex;
         }
     }
 }

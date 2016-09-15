@@ -26,7 +26,8 @@ namespace Deck_Biulding_Card_Game_Biulder
         Destroy,
         DestroyRandom,
         PassCard,
-        AquireFreeCard,
+        AquireFreeCardByValue,
+        AquireFreeCardByType,
         winIf,
         endEffect
     }
