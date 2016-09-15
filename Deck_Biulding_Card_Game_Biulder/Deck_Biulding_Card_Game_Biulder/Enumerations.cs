@@ -43,7 +43,8 @@ namespace Deck_Biulding_Card_Game_Biulder
     {
         none,
         even,
-        odd
+        odd,
+        all
     }
 
     public enum Target

@@ -88,12 +88,33 @@ namespace Deck_Biulding_Card_Game_Biulder
             for (int i = 0; i < effect.NumberOfEffects || (effect.FreeByTotalValue && value > 0); i++)
             {
                 List<Card> available = mainDeckList[effect.targetIndexLocation].getBuyableCards();
-                available.RemoveAll(x => x.Cost[effect.FreeValueType] > value);
+                available.RemoveAll(x => x.Cost[effect.FreeValueCostType] > value);
                 if (available.Count == 0) break;
                 selectFromCards = available;
                 Card selected = selectCard(false, player);
                 if (selected == null) break;
-                if (effect.FreeByTotalValue) value -= selected.Cost[effect.FreeValueType];
+                if (effect.FreeByTotalValue) value -= selected.Cost[effect.FreeValueCostType];
+                aquired.Add(selected);
+            }
+
+            return aquired;
+        }
+
+        public List<Card> getFreeCardByType(CardEffect effect)
+        {
+            List<Card> aquired = new List<Card>();
+            string value = effect.FreeCardType;
+            int numCards = effect.NumberOfEffects;
+            //Get free cards from main deck 1,2,3
+
+            for (int i = 0; i < effect.NumberOfEffects || effect.EffectConditionsValue == Value.all; i++)
+            {
+                List<Card> available = mainDeckList[effect.targetIndexLocation].getBuyableCards();
+                available.RemoveAll(x => x.Type  == value);
+                if (available.Count == 0) break;
+                selectFromCards = available;
+                Card selected = selectCard(false, player);
+                if (selected == null) break;
                 aquired.Add(selected);
             }
 

@@ -30,7 +30,14 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public int FreeValueType
+        public string FreeCardType
+        {
+            get;
+            private set;
+        }
+
+        //Cost Type i.e. Cost[type 0, type 1, ...]
+        public int FreeValueCostType
         {
             get;
             private set;
