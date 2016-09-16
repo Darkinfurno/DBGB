@@ -54,7 +54,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         playerList[player].addCardsTo(getFreeCardByValue(cef), cef.SelfTargetedDeckType);
                         break;
                     case events.AquireFreeCardByType:
-                        //playerList[player].addCardsTo(getFreeCardByType(cef), cef.SelfTargetedDeckType);
+                        playerList[player].addCardsTo(getFreeCardByType(cef), cef.SelfTargetedDeckType);
                         break;
                     case events.Discard:
                         cardEventDiscard(cef);
