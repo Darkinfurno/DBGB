@@ -22,7 +22,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 return;
             }
             drawAttemptFinish();
-            
+
         }
 
         public void addCardsTo(List<Card> cards, TargetDeckType target)
@@ -75,7 +75,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             bool checkEmpty = true;
             for (int i = 0; i < number; i++)
             {
-                if (Deck.Count == 0  && checkEmpty)
+                if (Deck.Count == 0 && checkEmpty)
                 {
                     shuffle();
                 }
@@ -94,28 +94,27 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             foreach (Card c in ShowList)
             {
-                Deck.Insert(0,c);
+                Deck.Insert(0, c);
             }
             ShowList.Clear();
         }
 
-        public Card destroy(bool random,int location = 0)
+        public Card destroy(bool random)
         {
-            if (random)
-            {
-                int numOfAvailable = AvailableCards.Count();
-                Random rdm = new Random();
-                int index = rdm.Next(0, numOfAvailable);
-                Card destroyed = AvailableCards[index];
-                AvailableCards.RemoveAt(index);
-                return destroyed;
-            }
-            else
-            {
-                Card destroyed = AvailableCards[location];
-                AvailableCards.RemoveAt(location);
-                return destroyed;
-            }
+
+            int numOfAvailable = AvailableCards.Count();
+            Random rdm = new Random();
+            int index = rdm.Next(0, numOfAvailable);
+            Card destroyed = AvailableCards[index];
+            AvailableCards.RemoveAt(index);
+            return destroyed;
+
+        }
+        public Card destroy(int location)
+        {
+            Card destroyed = AvailableCards[location];
+            AvailableCards.RemoveAt(location);
+            return destroyed;
         }
     }
 }

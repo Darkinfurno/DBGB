@@ -59,17 +59,11 @@ namespace Deck_Biulding_Card_Game_Biulder
                     case events.Discard:
                         cardEventDiscard(cef);
                         break;
-                    case events.DiscardIfCostNotZero:
-                        //cardEventValueBasedDiscard(cef);
-                        break;
-                    case events.DiscardIfCostZero:
-                        //cardEventValueBasedDiscard(cef);
-                        break;
-                    case events.DiscardIfEvenOdd:
-                        //cardEventValueBasedDiscard(cef);
+                    case events.DiscardOfAboveBelowValue:
+                        cardEventValueBasedDiscard(cef);
                         break;
                     case events.DiscardOfType:
-                        //cardEventTypeBasedDiscard(cef);
+                        cardEventTypeBasedDiscard(cef);
                         break;
                     case events.DrawIfEvenOdd:
                         //cardEventValuebasedDraw(cef);
@@ -84,10 +78,10 @@ namespace Deck_Biulding_Card_Game_Biulder
                         processPeek(cef);
                         break;
                     case events.Destroy:
-                        //cardEventDestroy;
+                        cardEventDestroyCard(cef, false);
                         break;
                     case events.DestroyRandom:
-                        cardEventdestroyRandomCard(cef);
+                        cardEventDestroyCard(cef,true);
                         break;
                     case events.PassCard:
 
@@ -161,7 +155,7 @@ namespace Deck_Biulding_Card_Game_Biulder
              //Call to display selectable cards Form
 
 
-            if (cancel) return null;
+            if (cancel) return -1;
             return selectedIndex;
         }
     }

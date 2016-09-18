@@ -14,7 +14,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             for (int i = 0; i < effect.NumberOfEffects; i++)
             {
                 playerList[player].draw();
-
             }
         }
 
@@ -81,10 +80,10 @@ namespace Deck_Biulding_Card_Game_Biulder
         public List<Card> getFreeCardByValue(CardEffect effect)
         {
             List<Card> aquired = new List<Card>();
-            int value = effect.FreeValue;
+            int value = effect.Value;
             int numCards = effect.NumberOfEffects;
             //Get free cards from main deck 1,2,3
-            
+
             for (int i = 0; i < effect.NumberOfEffects || (effect.FreeByTotalValue && value > 0); i++)
             {
                 List<Card> available = mainDeckList[effect.targetIndexLocation].getBuyableCards();
@@ -103,14 +102,14 @@ namespace Deck_Biulding_Card_Game_Biulder
         public List<Card> getFreeCardByType(CardEffect effect)
         {
             List<Card> aquired = new List<Card>();
-            string value = effect.FreeCardType;
+            string value = effect.TargetCardType;
             int numCards = effect.NumberOfEffects;
             //Get free cards from main deck 1,2,3
 
             for (int i = 0; i < effect.NumberOfEffects || effect.EffectConditionsValue == Value.all; i++)
             {
                 List<Card> available = mainDeckList[effect.targetIndexLocation].getBuyableCards();
-                available.RemoveAll(x => x.Type  == value);
+                available.RemoveAll(x => x.Type == value);
                 if (available.Count == 0) break;
                 selectFromCards = available;
                 Card selected = selectCard(false, player);
@@ -121,7 +120,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             return aquired;
         }
 
-        public void cardEventdestroyRandomCard(CardEffect effect)
+        public void cardEventDestroyCard(CardEffect effect, bool random)
         {
             bool fullLoop = true;
             bool otherOnly = effect.EffectConditionsTarget == Target.others;
@@ -139,12 +138,12 @@ namespace Deck_Biulding_Card_Game_Biulder
                 }
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
-                    Card destroyed = playerList[i].destroy(true);
+                    if (playerList[i].AvailableCards.Count == 0) break;
+                    selectFromCards = playerList[i].AvailableCards;
+                    Card destroyed = (random == true) ? playerList[i].destroy(true) : playerList[i].destroy(selectCardIndex(true, i) );
                     mainDeckList[0].addToDestroyed(destroyed);
                 }
-
             }
-
         }
 
         private void cardEventDiscard(CardEffect effect)
@@ -163,9 +162,69 @@ namespace Deck_Biulding_Card_Game_Biulder
                 {
                     fullLoop = false;
                 }
+                selectFromCards = playerList[i].AvailableCards;
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
-                    playerList[j].RemovedCards.Add(playerList[j].destroy(false, selectCardIndex(true,j)));
+                    if (playerList[i].AvailableCards.Count == 0) break;
+                    playerList[i].RemovedCards.Add(playerList[i].destroy(selectCardIndex(true, i)));
+                }
+            }
+        }
+
+        public void cardEventValueBasedDiscard(CardEffect effect)
+        {
+            int value = effect.Value;
+
+            bool fullLoop = true;
+            bool otherOnly = effect.EffectConditionsTarget == Target.others;
+            bool selfOnly = effect.EffectConditionsTarget == Target.self;
+            if (otherOnly) fullLoop = false;
+            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+
+            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            {
+                if (selfOnly) i = player;
+                if (i < playerList.Count) i = 0;
+                if (i == player || (i == prePlayer && otherOnly))
+                {
+                    fullLoop = false;
+                }
+                if (effect.ValueTarget == ValueRange.none) selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.FreeValueCostType] == value);
+                else if (effect.ValueTarget == ValueRange.above) selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.FreeValueCostType] > value);
+                else selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.FreeValueCostType] < value);
+                for (int j = 0; j < effect.NumberOfEffects; j++)
+                {
+                    if (playerList[i].AvailableCards.Count == 0) break;
+                    Card discard = selectCard(true, i);
+                    playerList[i].AvailableCards.Remove(discard); // may not need this
+                    playerList[i].RemovedCards.Add(discard);
+                }
+            }
+        }
+
+        public void cardEventTypeBasedDiscard(CardEffect effect)
+        {
+            bool fullLoop = true;
+            bool otherOnly = effect.EffectConditionsTarget == Target.others;
+            bool selfOnly = effect.EffectConditionsTarget == Target.self;
+            if (otherOnly) fullLoop = false;
+            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+
+            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            {
+                if (selfOnly) i = player;
+                if (i < playerList.Count) i = 0;
+                if (i == player || (i == prePlayer && otherOnly))
+                {
+                    fullLoop = false;
+                }
+                selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Type == effect.TargetCardType);
+                for (int j = 0; j < effect.NumberOfEffects; j++)
+                {
+                    if (playerList[i].AvailableCards.Count == 0) break;
+                    Card discard = selectCard(true, i);
+                    playerList[i].AvailableCards.Remove(discard); // may not need this
+                    playerList[i].RemovedCards.Add(discard);
                 }
             }
         }

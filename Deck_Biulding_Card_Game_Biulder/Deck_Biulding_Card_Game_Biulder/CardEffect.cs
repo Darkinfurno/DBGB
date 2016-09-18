@@ -24,13 +24,13 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public int FreeValue
+        public int Value
         {
             get;
             private set;
         }
 
-        public string FreeCardType
+        public string TargetCardType
         {
             get;
             private set;
@@ -61,7 +61,11 @@ namespace Deck_Biulding_Card_Game_Biulder
             get;
             private set;
         }
-
+        public ValueRange ValueTarget
+        {
+            get;
+            private set;
+        }
         public Value EffectConditionsValue
         {
             get;
@@ -88,7 +92,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public CardEffect(events ev, int num,
             MatchCondition ect = MatchCondition.none,
-            Value ecv = Value.none)
+            Value ecv = Deck_Biulding_Card_Game_Biulder.Value.none)
         {
             Effect = ev;
             NumberOfEffects = num;
