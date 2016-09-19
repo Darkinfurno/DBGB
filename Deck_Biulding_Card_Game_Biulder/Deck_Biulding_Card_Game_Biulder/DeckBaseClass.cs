@@ -72,6 +72,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public List<Card> Show(int number = 1)
         {
+            ShowList.Clear();
             bool checkEmpty = true;
             for (int i = 0; i < number; i++)
             {

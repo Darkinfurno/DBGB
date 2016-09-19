@@ -66,7 +66,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         cardEventTypeBasedDiscard(cef);
                         break;
                     case events.DrawIfEvenOdd:
-                        //cardEventValuebasedDraw(cef);
+                        cardEventValueBasedDraw(cef);
                         break;
                     case events.DrawIfType:
                         cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
@@ -115,16 +115,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             foreach (Card card in cards)
             {
                 temp.Add(card.Type);
-            }
-            return temp.ToArray();
-        }
-
-        public List<int>[] getAllCosts(List<Card> cards)
-        {
-            List<List<int>> temp = new List<List<int>>();
-            foreach (Card card in cards)
-            {
-                temp.Add(card.Cost);
             }
             return temp.ToArray();
         }
