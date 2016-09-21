@@ -66,10 +66,10 @@ namespace Deck_Biulding_Card_Game_Biulder
                         cardEventTypeBasedDiscard(cef);
                         break;
                     case events.DrawIfEvenOdd:
-                        cardEventValueBasedDraw(cef);
+                        cardEventEvenOddBasedDraw(cef);
                         break;
-                    case events.DrawIfType:
-                        cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
+                    case events.DrawIfAboveBelow:
+                        cardEventValueBasedDraw(cef);
                         break;
                     case events.DrawIfTypesMatch:
                         cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
@@ -90,10 +90,10 @@ namespace Deck_Biulding_Card_Game_Biulder
 
                         break;
                     case events.DrawDiscardedAboveBelowValue:
-                        //cardEventValueBasedRetrieveDiscarded(cef);
+                        cardEventValueBasedRetrieveDiscarded(cef);
                         break;
                     case events.DrawDiscardedType:
-                        //cardEventsTypeBasedDiscard(cef);
+                        cardEventsTypeBasedDiscardedDraw(cef);
                         break;
                     case events.DrawDiscardedTypeAboveBelowValue:
                         //cardEventsValueAndTypeBasedDiscard(cef);

@@ -12,7 +12,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         Draw,
         DrawIfEvenOdd,
         DrawIfTypesMatch,
-        DrawIfType,
+        DrawIfAboveBelow,
         DrawDiscardedAboveBelowValue,
         DrawDiscardedType,
         DrawDiscardedTypeAboveBelowValue,
@@ -30,6 +30,21 @@ namespace Deck_Biulding_Card_Game_Biulder
         endEffect
     }
 
+    public enum CondidionToExecute
+    {
+        allMustMatch,
+        ifAnyMatch,
+        none
+    }
+
+    public enum CardSelectionType
+    {
+        forceAllCards,
+        upToAllCards,
+        SelectSpecificNumber,
+        none
+    }
+
     public enum MatchCondition
     {
         none,
@@ -37,7 +52,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         different
     }
 
-    public enum Value
+    public enum ValueEvenOdd
     {
         none,
         even,
@@ -62,14 +77,14 @@ namespace Deck_Biulding_Card_Game_Biulder
         deck
     }
 
-    public enum ValueRange
+    public enum ValueRangeAboveBelow
     {
         none,
         above,
         below
     }
 
-    public enum special
+    public enum Special
     {
         none,
         attack,

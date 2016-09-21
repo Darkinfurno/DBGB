@@ -55,18 +55,27 @@ namespace Deck_Biulding_Card_Game_Biulder
             get;
             private set; 
         }
-
+        public CondidionToExecute EffectCondition
+        {
+            get;
+            private set;
+        } 
+        public CardSelectionType SelectionType
+        {
+            get;
+            private set;
+        }
         public MatchCondition EffectMatchCondition
         {
             get;
             private set;
         }
-        public ValueRange ValueTarget
+        public ValueRangeAboveBelow ValueTarget
         {
             get;
             private set;
         }
-        public Value EffectConditionsValue
+        public ValueEvenOdd EffectConditionsValue
         {
             get;
             private set;
@@ -92,7 +101,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public CardEffect(events ev, int num,
             MatchCondition ect = MatchCondition.none,
-            Value ecv = Deck_Biulding_Card_Game_Biulder.Value.none)
+            ValueEvenOdd ecv = Deck_Biulding_Card_Game_Biulder.ValueEvenOdd.none)
         {
             Effect = ev;
             NumberOfEffects = num;
