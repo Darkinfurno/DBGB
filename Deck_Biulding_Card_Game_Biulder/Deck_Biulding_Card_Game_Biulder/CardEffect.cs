@@ -37,7 +37,7 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         //Cost Type i.e. Cost[type 0, type 1, ...]
-        public int ValueCostType
+        public int TargetIndex
         {
             get;
             private set;

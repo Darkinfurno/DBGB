@@ -84,10 +84,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         cardEventDestroyCard(cef,true);
                         break;
                     case events.PassCard:
-
-                        break;
-                    case events.winIf:
-
+                        passCardToPlayer(cef);
                         break;
                     case events.DrawDiscardedAboveBelowValue:
                         cardEventValueBasedRetrieveDiscarded(cef);
@@ -96,7 +93,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                         cardEventsTypeBasedDiscardedDraw(cef);
                         break;
                     case events.DrawDiscardedTypeAboveBelowValue:
-                        //cardEventsValueAndTypeBasedDiscard(cef);
+                        cardEventsValueAndTypeBasedDiscard(cef);
                         break;
                     case events.endEffect:
                         selectFromCards.Clear();

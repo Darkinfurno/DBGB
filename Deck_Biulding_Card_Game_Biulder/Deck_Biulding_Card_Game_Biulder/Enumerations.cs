@@ -26,7 +26,6 @@ namespace Deck_Biulding_Card_Game_Biulder
         PassCard,
         AquireFreeCardByValue,
         AquireFreeCardByType,
-        winIf,
         endEffect
     }
 
