@@ -55,6 +55,11 @@ namespace Deck_Biulding_Card_Game_Biulder
             get;
             private set; 
         }
+        public Special EffectType
+        {
+            get;
+            private set;
+        }
         public CondidionToExecute EffectCondition
         {
             get;

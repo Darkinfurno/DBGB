@@ -1,0 +1,33 @@
+Edit/Create Options:
+	player limts min/max
+	default player hand size
+	create card
+		power
+		add effects
+	create constant decks
+		add cards
+			number of each card to add
+
+Game Modes:
+	Create mode 
+		lists what you have has edit/create options
+	edit/preview mode 
+		displays the "play" field with the edit/create options that is split vertically resizable
+		option to change player[to view other hands]
+		
+	"play" mode 
+		allows playing of the game using the "play" field
+		option to change player[to view other hands]
+
+File Options:
+	Save
+	Save As
+	Load
+	New Game [when in play / preview mode]
+Change in mode should update GUI not create a new one.
+
+
+
+[Avaible Cards][Avaible Cards]...[Avaible Cards][Destroy Pile]
+
+[Player Avaible Cards][Discard Pile]

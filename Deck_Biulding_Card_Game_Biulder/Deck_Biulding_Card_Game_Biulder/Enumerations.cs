@@ -26,7 +26,13 @@ namespace Deck_Biulding_Card_Game_Biulder
         PassCard,
         AquireFreeCardByValue,
         AquireFreeCardByType,
-        endEffect
+        endEffect,
+        // Not implemented
+        AddPowerEvenOddPeek,
+        AddPowerTypePlayed,
+        AddPowerTypePeek,
+        AddPowerTypeInDiscard,
+        AddPowerIfDestroy,
     }
 
     public enum CondidionToExecute
@@ -83,11 +89,21 @@ namespace Deck_Biulding_Card_Game_Biulder
         below
     }
 
+    public enum AttackType
+    {
+        none,
+        onPlay,
+        onAppear,
+        onBuy,
+        onDestroy,
+        onDiscard
+    }
+
     public enum Special
     {
         none,
-        attack,
         defend,
-        oneTimeAttack
+        attack,
+        UndefendableAttack,
     }
 }

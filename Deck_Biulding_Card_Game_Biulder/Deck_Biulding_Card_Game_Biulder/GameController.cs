@@ -40,9 +40,19 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void PlayCardAt(int aIndex)
         {
-            Card lPlayedCard = playerList[player].playcard(aIndex);
 
-            foreach (CardEffect cef in lPlayedCard.Effects)
+            Card lPlayedCard = playerList[player].playcard(aIndex);
+            for(int i = 0; i < lPlayedCard.Cost.Count(); i++)
+            {
+                buyPower[i] += lPlayedCard.Cost[i];
+            }
+
+        }
+
+        public void ManageEffects(Card aCard)
+        {
+            
+            foreach (CardEffect cef in aCard.Effects)
             {
 
                 switch (cef.Effect)

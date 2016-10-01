@@ -60,12 +60,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
-        public List<CardEffect> SpecialEffects
-        {
-            get;
-            private set;
-        }
-
         // Card Constructor
         //public Card(string aName, string aType,int aPoints, int aID, int aOwner, List<CardEffect> aCardEffects = null, List<CardEffect> aCardSpecialEffects = null)
         public Card(string aName, string aType, int aPoints, int aOwner, List<CardEffect> aCardEffects = null, List<CardEffect> aCardSpecialEffects = null)
@@ -80,12 +74,6 @@ namespace Deck_Biulding_Card_Game_Biulder
                 this.Effects = new List<CardEffect>();
             }
             else this.Effects = aCardEffects;
-
-            if (aCardSpecialEffects == null)
-            {
-                this.SpecialEffects = new List<CardEffect>();
-            }
-            else this.SpecialEffects = aCardSpecialEffects;
 
 
         }
