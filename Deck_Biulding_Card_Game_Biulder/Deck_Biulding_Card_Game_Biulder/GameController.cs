@@ -81,9 +81,9 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
 
             Card lPlayedCard = playerList[player].playcard(aIndex);
-            for(int i = 0; i < lPlayedCard.Cost.Count(); i++)
+            for(int i = 0; i < lPlayedCard.Power.Count(); i++)
             {
-                buyPower[i] += lPlayedCard.Cost[i];
+                buyPower[i] += lPlayedCard.Power[i];
             }
 
         }
@@ -122,7 +122,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                             cardEventValueBasedDraw(cef);
                             break;
                         case events.DrawIfTypesMatch:
-                            cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
+                            cardEventTypeBasedDraw(cef);
                             break;
                         case events.Peek:
                             processPeek(cef);
@@ -147,6 +147,21 @@ namespace Deck_Biulding_Card_Game_Biulder
                             break;
                         case events.endEffect:
                             selectFromCards.Clear();
+                            break;
+                        case events.AddPowerEvenOddPeek:
+                            cardEventAddPowerEvenOddPeek(cef);
+                            break;
+                        case events.AddPowerTypePlayed:
+                            cardEventTypeBasedAddPower(cef);
+                            break;
+                        case events.AddPowerTypePeek:
+                            cardEventTypeBasedAddPowerPeek(cef);
+                            break;
+                        case events.AddPowerTypeInDiscard:
+
+                            break;
+                        case events.AddPowerIfDestroy:
+
                             break;
 
                     }

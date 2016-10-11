@@ -18,17 +18,24 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
 
-        public void cardEventTypeBasedDraw(CardEffect effect, string[] Args)
+        public void cardEventTypeBasedDraw(CardEffect effect)
         {
+            int[] players = getEffectedPlayers(effect);
 
-            if (Args.Distinct().Count() == Args.Count() && effect.EffectMatchCondition == MatchCondition.different ||
-                Args.Distinct().Count() == 1 && effect.EffectMatchCondition == MatchCondition.same)
+            for (int i = 0; i < players.Length; i++)
             {
-                cardEventDraw(effect);
-            }
-            else if (Args.Count() == 1 && effect.EffectConditionText == Args[0])
-            {
-                cardEventDraw(effect);
+                List<Card> drawn = playerList[players[i]].Show(effect.NumberOfEffects);
+                string[] foundTypes = getAllTypes(drawn);
+                if ((foundTypes.Distinct().Count() == foundTypes.Count() && effect.EffectMatchCondition == MatchCondition.different) ||
+                    (foundTypes.Distinct().Count() == 1 && effect.EffectMatchCondition == MatchCondition.same))
+                {
+                    playerList[players[i]].addCardsTo(drawn, TargetDeckType.availableCards);
+                }
+                else if (foundTypes.Count() == 1 && effect.EffectConditionText == foundTypes[0])
+                {
+                    playerList[players[i]].addCardsTo(drawn, TargetDeckType.availableCards);
+                }
+                else playerList[players[i]].ReturnShown();
             }
 
         }
@@ -207,6 +214,21 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
+        public void cardEventAddPowerEvenOddPeek(CardEffect effect)
+        {
+            List<Card> drawn = playerList[player].Show(effect.NumberOfEffects);
+            List<Card> match = drawn.FindAll(x => (x.Cost[effect.TargetIndex] % 2 == 0));
+            if ((effect.EffectConditionsValue == ValueEvenOdd.even && drawn.Count() == match.Count()) || (effect.EffectConditionsValue == ValueEvenOdd.odd && match.Count == 0))
+            {
+                for (int i = 0; i < effect.Power.Count(); i++)
+                {
+                    buyPower[i] += effect.Power[i];
+                }
+            }
+
+            playerList[player].ReturnShown();
+        }
+
         public void cardEventValueBasedDraw(CardEffect effect)
         {
             int[] players = getEffectedPlayers(effect);
@@ -274,6 +296,32 @@ namespace Deck_Biulding_Card_Game_Biulder
                     }
                 }
             }
+        }
+
+
+        public void cardEventTypeBasedAddPower(CardEffect effect)
+        {
+            selectFromCards = playerList[player].playedCards.FindAll(x => x.Type == effect.TargetCardType);
+            if(selectFromCards.Count == effect.Value)
+            {
+                for(int i = 0; i < effect.Power.Count(); i++)
+                {
+                    buyPower[i] += effect.Power[i];
+                }
+            }
+        }
+
+        public void cardEventTypeBasedAddPowerPeek(CardEffect effect)
+        {
+            selectFromCards = playerList[player].Show(effect.NumberOfEffects).FindAll(x => x.Type == effect.TargetCardType);
+            if (selectFromCards.Count == effect.NumberOfEffects)
+            {
+                for (int i = 0; i < effect.Power.Count(); i++)
+                {
+                    buyPower[i] += effect.Power[i];
+                }
+            }
+            playerList[player].ReturnShown();
         }
 
         public void cardEventsValueAndTypeBasedDiscard(CardEffect effect)

@@ -8,7 +8,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public class PlayerDeck : DeckBaseClass
     {
-        List<Card> playedCards = new List<Card>();
+        public List<Card> playedCards = new List<Card>();
 
         public void discard(Card card)
         {

@@ -18,6 +18,11 @@ namespace Deck_Biulding_Card_Game_Biulder
             private set;
         }
 
+        public List<int> Power
+        {
+            get;
+            private set;
+        }
         public int NumberOfEffects
         {
             get;
