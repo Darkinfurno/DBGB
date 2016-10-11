@@ -38,6 +38,45 @@ namespace Deck_Biulding_Card_Game_Biulder
             }
         }
 
+        //Returns the array of players to be effected if the effect is an attack it resolves the defences of the players first then returns the list of the non-defeneded players
+        public int[] getEffectedPlayers(CardEffect effect)
+        {
+
+            bool fullLoop = true;
+            bool otherOnly = effect.EffectConditionsTarget == Target.others;
+            bool selfOnly = effect.EffectConditionsTarget == Target.self;
+            if (otherOnly) fullLoop = false;
+            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            List<int> Result = new List<int>();
+            for (int i = prePlayer; !fullLoop; i++)
+            {
+                if (selfOnly) i = player;
+                if (i == playerList.Count) i = 0;
+                if (i == player || (i == prePlayer && otherOnly))
+                {
+                    fullLoop = false;
+                }
+                if (effect.EffectType == Special.attack && !processDefence(i)) Result.Add(i);
+                else Result.Add(i);
+            }
+            return Result.ToArray();
+        }
+
+        public bool processDefence(int defendingPlayer)
+        {
+            throw new NotImplementedException();
+            List<Card> available = findAllOfEffectType(defendingPlayer, Special.defend);
+            if (available.Count == 0) return false;
+            selectFromCards = available;
+            Card playedDefence = selectCard(false, defendingPlayer);
+            if (playedDefence == null) return false;
+            int currentPlayer = player;
+            player = defendingPlayer;
+            ManageEffects(playedDefence, true);
+            player = currentPlayer;
+            return true;
+        }
+
         public void PlayCardAt(int aIndex)
         {
 
@@ -49,68 +88,69 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         }
 
-        public void ManageEffects(Card aCard)
+        public void ManageEffects(Card aCard, bool isDefence = false)
         {
             
             foreach (CardEffect cef in aCard.Effects)
             {
-
-                switch (cef.Effect)
+                if ((cef.EffectType != Special.defend && !isDefence || (cef.EffectType == Special.defend && isDefence)))
                 {
-                    case events.Draw:
-                        cardEventDraw(cef);
-                        break;
-                    case events.AquireFreeCardByValue:
-                        playerList[player].addCardsTo(getFreeCardByValue(cef), cef.SelfTargetedDeckType);
-                        break;
-                    case events.AquireFreeCardByType:
-                        playerList[player].addCardsTo(getFreeCardByType(cef), cef.SelfTargetedDeckType);
-                        break;
-                    case events.Discard:
-                        cardEventDiscard(cef);
-                        break;
-                    case events.DiscardOfAboveBelowValue:
-                        cardEventValueBasedDiscard(cef);
-                        break;
-                    case events.DiscardOfType:
-                        cardEventTypeBasedDiscard(cef);
-                        break;
-                    case events.DrawIfEvenOdd:
-                        cardEventEvenOddBasedDraw(cef);
-                        break;
-                    case events.DrawIfAboveBelow:
-                        cardEventValueBasedDraw(cef);
-                        break;
-                    case events.DrawIfTypesMatch:
-                        cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
-                        break;
-                    case events.Peek:
-                        processPeek(cef);
-                        break;
-                    case events.Destroy:
-                        cardEventDestroyCard(cef, false);
-                        break;
-                    case events.DestroyRandom:
-                        cardEventDestroyCard(cef,true);
-                        break;
-                    case events.PassCard:
-                        passCardToPlayer(cef);
-                        break;
-                    case events.DrawDiscardedAboveBelowValue:
-                        cardEventValueBasedRetrieveDiscarded(cef);
-                        break;
-                    case events.DrawDiscardedType:
-                        cardEventsTypeBasedDiscardedDraw(cef);
-                        break;
-                    case events.DrawDiscardedTypeAboveBelowValue:
-                        cardEventsValueAndTypeBasedDiscard(cef);
-                        break;
-                    case events.endEffect:
-                        selectFromCards.Clear();
-                        break;
+                    switch (cef.Effect)
+                    {
+                        case events.Draw:
+                            cardEventDraw(cef);
+                            break;
+                        case events.AquireFreeCardByValue:
+                            playerList[player].addCardsTo(getFreeCardByValue(cef), cef.SelfTargetedDeckType);
+                            break;
+                        case events.AquireFreeCardByType:
+                            playerList[player].addCardsTo(getFreeCardByType(cef), cef.SelfTargetedDeckType);
+                            break;
+                        case events.Discard:
+                            cardEventDiscard(cef);
+                            break;
+                        case events.DiscardOfAboveBelowValue:
+                            cardEventValueBasedDiscard(cef);
+                            break;
+                        case events.DiscardOfType:
+                            cardEventTypeBasedDiscard(cef);
+                            break;
+                        case events.DrawIfEvenOdd:
+                            cardEventEvenOddBasedDraw(cef);
+                            break;
+                        case events.DrawIfAboveBelow:
+                            cardEventValueBasedDraw(cef);
+                            break;
+                        case events.DrawIfTypesMatch:
+                            cardEventTypeBasedDraw(cef, getAllTypes(selectFromCards));
+                            break;
+                        case events.Peek:
+                            processPeek(cef);
+                            break;
+                        case events.Destroy:
+                            cardEventDestroyCard(cef, false);
+                            break;
+                        case events.DestroyRandom:
+                            cardEventDestroyCard(cef, true);
+                            break;
+                        case events.PassCard:
+                            passCardToPlayer(cef);
+                            break;
+                        case events.DrawDiscardedAboveBelowValue:
+                            cardEventValueBasedRetrieveDiscarded(cef);
+                            break;
+                        case events.DrawDiscardedType:
+                            cardEventsTypeBasedDiscardedDraw(cef);
+                            break;
+                        case events.DrawDiscardedTypeAboveBelowValue:
+                            cardEventsValueAndTypeBasedDiscard(cef);
+                            break;
+                        case events.endEffect:
+                            selectFromCards.Clear();
+                            break;
 
+                    }
                 }
-
             }
 
         }
@@ -124,6 +164,11 @@ namespace Deck_Biulding_Card_Game_Biulder
                 temp.Add(card.Type);
             }
             return temp.ToArray();
+        }
+
+        public List<Card> findAllOfEffectType(int player, Special Type)
+        {
+            return playerList[player].AvailableCards.FindAll(x => x.Effects.FindAll(y => y.EffectType == Type).Count > 0);
         }
 
         public void createCard()

@@ -79,6 +79,7 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public List<Card> getFreeCardByValue(CardEffect effect)
         {
+
             List<Card> aquired = new List<Card>();
             int value = effect.Value;
             int numCards = effect.NumberOfEffects;
@@ -122,25 +123,16 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void cardEventDestroyCard(CardEffect effect, bool random)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
+
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
-                    if (playerList[i].AvailableCards.Count == 0) break;
-                    selectFromCards = playerList[i].AvailableCards;
-                    Card destroyed = (random == true) ? playerList[i].destroy(true) : playerList[i].destroy(selectCardIndex(true, i));
+                    if (playerList[players[i]].AvailableCards.Count == 0) break;
+                    selectFromCards = playerList[players[i]].AvailableCards;
+                    Card destroyed = (random == true) ? playerList[players[i]].destroy(true) : playerList[players[i]].destroy(selectCardIndex(true, players[i]));
                     mainDeckList[0].addToDestroyed(destroyed);
                 }
             }
@@ -148,25 +140,15 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         private void cardEventDiscard(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
-                selectFromCards = playerList[i].AvailableCards;
+                selectFromCards = playerList[players[i]].AvailableCards;
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (selectFromCards.Count == 0) break;
-                    playerList[i].RemovedCards.Add(playerList[i].destroy(selectCardIndex(true, i)));
+                    playerList[players[i]].RemovedCards.Add(playerList[players[i]].destroy(selectCardIndex(true, players[i])));
                 }
             }
         }
@@ -175,136 +157,86 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             int value = effect.Value;
 
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
-                if (effect.ValueTarget == ValueRangeAboveBelow.none) selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] == value);
-                else if (effect.ValueTarget == ValueRangeAboveBelow.above) selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] > value);
-                else selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] < value);
+                if (effect.ValueTarget == ValueRangeAboveBelow.none) selectFromCards = playerList[players[i]].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] == value);
+                else if (effect.ValueTarget == ValueRangeAboveBelow.above) selectFromCards = playerList[players[i]].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] > value);
+                else selectFromCards = playerList[players[i]].AvailableCards.FindAll(x => x.Cost[effect.TargetIndex] < value);
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (selectFromCards.Count == 0) break;
                     Card discard = selectCard(true, i);
-                    playerList[i].AvailableCards.Remove(discard); // may not need this
-                    playerList[i].RemovedCards.Add(discard);
+                    playerList[players[i]].AvailableCards.Remove(discard); // may not need this
+                    playerList[players[i]].RemovedCards.Add(discard);
                 }
             }
         }
 
         public void cardEventTypeBasedDiscard(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
-                selectFromCards = playerList[i].AvailableCards.FindAll(x => x.Type == effect.TargetCardType);
+                selectFromCards = playerList[players[i]].AvailableCards.FindAll(x => x.Type == effect.TargetCardType);
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (playerList[i].AvailableCards.Count == 0) break;
                     Card discard = selectCard(true, i);
-                    playerList[i].AvailableCards.Remove(discard); // may not need this
-                    playerList[i].RemovedCards.Add(discard);
+                    playerList[players[i]].AvailableCards.Remove(discard); // may not need this
+                    playerList[players[i]].RemovedCards.Add(discard);
                 }
             }
         }
 
         public void cardEventEvenOddBasedDraw(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
 
-                List<Card> drawn = playerList[i].Show(effect.NumberOfEffects);
+                List<Card> drawn = playerList[players[i]].Show(effect.NumberOfEffects);
                 List<Card> match = drawn.FindAll(x => (x.Cost[effect.TargetIndex] % 2 == 0));
-                if (effect.EffectConditionsValue == ValueEvenOdd.even && drawn.Count() == match.Count()) playerList[i].addCardsTo(drawn, TargetDeckType.availableCards);
-                else if (effect.EffectConditionsValue == ValueEvenOdd.odd && match.Count == 0) playerList[i].addCardsTo(drawn, TargetDeckType.availableCards);
-                else playerList[i].ReturnShown();
-                
+                if (effect.EffectConditionsValue == ValueEvenOdd.even && drawn.Count() == match.Count()) playerList[players[i]].addCardsTo(drawn, TargetDeckType.availableCards);
+                else if (effect.EffectConditionsValue == ValueEvenOdd.odd && match.Count == 0) playerList[players[i]].addCardsTo(drawn, TargetDeckType.availableCards);
+                else playerList[players[i]].ReturnShown();
+
             }
         }
 
         public void cardEventValueBasedDraw(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
 
-                List<Card> drawn = playerList[i].Show(effect.NumberOfEffects);
+                List<Card> drawn = playerList[players[i]].Show(effect.NumberOfEffects);
                 List<Card> match = drawn.FindAll(x => (effect.ValueTarget == ValueRangeAboveBelow.above ? x.Cost[effect.TargetIndex] > effect.Value : x.Cost[effect.TargetIndex] < effect.Value));
-                if (effect.EffectCondition == CondidionToExecute.allMustMatch && drawn.Count == match.Count) playerList[i].addCardsTo(drawn, TargetDeckType.availableCards);
+                if (effect.EffectCondition == CondidionToExecute.allMustMatch && drawn.Count == match.Count) playerList[players[i]].addCardsTo(drawn, TargetDeckType.availableCards);
                 else if (effect.EffectCondition == CondidionToExecute.ifAnyMatch)
                 {
                     drawn.RemoveAll(x => match.Exists(y => y.Name == x.Name)); //Hope this logic works right
-                    playerList[i].addCardsTo(match, TargetDeckType.availableCards);
-                    playerList[i].addCardsTo(drawn, TargetDeckType.deck);
+                    playerList[players[i]].addCardsTo(match, TargetDeckType.availableCards);
+                    playerList[players[i]].addCardsTo(drawn, TargetDeckType.deck);
                 }
-                else playerList[i].ReturnShown();
+                else playerList[players[i]].ReturnShown();
 
             }
         }
 
         public void cardEventValueBasedRetrieveDiscarded(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
 
-                selectFromCards = playerList[i].RemovedCards.FindAll(x => effect.ValueTarget == ValueRangeAboveBelow.above ? x.Cost[effect.TargetIndex] > effect.Value : x.Cost[effect.TargetIndex] < effect.Value);
-                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[i].addCardsTo(selectFromCards, TargetDeckType.availableCards);
+                selectFromCards = playerList[players[i]].RemovedCards.FindAll(x => effect.ValueTarget == ValueRangeAboveBelow.above ? x.Cost[effect.TargetIndex] > effect.Value : x.Cost[effect.TargetIndex] < effect.Value);
+                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[players[i]].addCardsTo(selectFromCards, TargetDeckType.availableCards);
                 else
                 {
                     int inumberation = effect.SelectionType == CardSelectionType.upToAllCards ? selectFromCards.Count() : effect.NumberOfEffects;
@@ -313,8 +245,8 @@ namespace Deck_Biulding_Card_Game_Biulder
                         if (selectFromCards.Count == 0) break;
                         Card selected = selectCard(false, i);
                         if (selected == null) break;
-                        playerList[i].AvailableCards.Add(selected);
-                        playerList[i].RemovedCards.Remove(selected);
+                        playerList[players[i]].AvailableCards.Add(selected);
+                        playerList[players[i]].RemovedCards.Remove(selected);
                     }
                 }
             }
@@ -322,23 +254,13 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void cardEventsTypeBasedDiscardedDraw(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
 
-                selectFromCards = playerList[i].RemovedCards.FindAll(x => x.Type == effect.TargetCardType);
-                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[i].addCardsTo(selectFromCards, TargetDeckType.availableCards);
+                selectFromCards = playerList[players[i]].RemovedCards.FindAll(x => x.Type == effect.TargetCardType);
+                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[players[i]].addCardsTo(selectFromCards, TargetDeckType.availableCards);
                 else
                 {
                     int inumberation = effect.SelectionType == CardSelectionType.upToAllCards ? selectFromCards.Count() : effect.NumberOfEffects;
@@ -347,8 +269,8 @@ namespace Deck_Biulding_Card_Game_Biulder
                         if (selectFromCards.Count == 0) break;
                         Card selected = selectCard(false, i);
                         if (selected == null) break;
-                        playerList[i].AvailableCards.Add(selected);
-                        playerList[i].RemovedCards.Remove(selected);
+                        playerList[players[i]].AvailableCards.Add(selected);
+                        playerList[players[i]].RemovedCards.Remove(selected);
                     }
                 }
             }
@@ -356,23 +278,13 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void cardEventsValueAndTypeBasedDiscard(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerList.Count - 1) % playerList.Count;
+            int[] players = getEffectedPlayers(effect);
 
-            for (int i = (player + playerList.Count + 1) % playerList.Count; !fullLoop; i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
 
-                selectFromCards = playerList[i].RemovedCards.FindAll(x => x.Type == effect.TargetCardType && (effect.ValueTarget == ValueRangeAboveBelow.above ? x.Cost[effect.TargetIndex] > effect.Value : x.Cost[effect.TargetIndex] < effect.Value));
-                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[i].addCardsTo(selectFromCards, TargetDeckType.availableCards);
+                selectFromCards = playerList[players[i]].RemovedCards.FindAll(x => x.Type == effect.TargetCardType && (effect.ValueTarget == ValueRangeAboveBelow.above ? x.Cost[effect.TargetIndex] > effect.Value : x.Cost[effect.TargetIndex] < effect.Value));
+                if (effect.SelectionType == CardSelectionType.forceAllCards) playerList[players[i]].addCardsTo(selectFromCards, TargetDeckType.availableCards);
                 else
                 {
                     int inumberation = effect.SelectionType == CardSelectionType.upToAllCards ? selectFromCards.Count() : effect.NumberOfEffects;
@@ -381,8 +293,8 @@ namespace Deck_Biulding_Card_Game_Biulder
                         if (selectFromCards.Count == 0) break;
                         Card selected = selectCard(false, i);
                         if (selected == null) break;
-                        playerList[i].AvailableCards.Add(selected); 
-                        playerList[i].RemovedCards.Remove(selected);
+                        playerList[players[i]].AvailableCards.Add(selected);
+                        playerList[players[i]].RemovedCards.Remove(selected);
                     }
                 }
             }
@@ -390,33 +302,25 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public void passCardToPlayer(CardEffect effect)
         {
-            bool fullLoop = true;
-            bool otherOnly = effect.EffectConditionsTarget == Target.others;
-            bool selfOnly = effect.EffectConditionsTarget == Target.self;
             int playerCount = playerList.Count;
-            if (otherOnly) fullLoop = false;
-            int prePlayer = (player + playerCount - 1) % playerList.Count;
+            List<Card>[] toMove = new List<Card>[playerCount];
             int shiftToPlayer = effect.EffectConditionsTarget == Target.playerLeft ? effect.TargetIndex * 1 : effect.TargetIndex * -1;
-            List <Card>[] toMove = new List<Card>[playerCount];
-            for (int i = (player + playerCount + 1) % playerCount; !fullLoop; i++)
+
+            int[] players = getEffectedPlayers(effect);
+
+            for (int i = 0; i < players.Length; i++)
             {
-                if (selfOnly) i = player;
-                if (i < playerList.Count) i = 0;
-                if (i == player || (i == prePlayer && otherOnly))
-                {
-                    fullLoop = false;
-                }
-                selectFromCards = playerList[i].AvailableCards;
-                for(int j = 0; j< effect.NumberOfEffects; j++)
+                selectFromCards = playerList[players[i]].AvailableCards;
+                for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (selectFromCards.Count == 0) break;
-                    toMove[i].Add(selectCard(true, i));
+                    toMove[players[i]].Add(selectCard(true, i));
 
                 }
             }
-            for(int i = 0; i < playerCount; i++)
+            for (int i = 0; i < playerCount; i++)
             {
-                playerList[(i + playerCount + shiftToPlayer) % playerCount].addCardsTo(toMove[i], effect.SelfTargetedDeckType);
+                playerList[(players[i] + playerCount + shiftToPlayer) % playerCount].addCardsTo(toMove[players[i]], effect.SelfTargetedDeckType);
             }
         }
     }
