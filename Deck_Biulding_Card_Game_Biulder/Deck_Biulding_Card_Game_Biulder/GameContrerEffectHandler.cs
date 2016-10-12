@@ -98,7 +98,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 available.RemoveAll(x => x.Cost[effect.TargetIndex] > value);
                 if (available.Count == 0) break;
                 selectFromCards = available;
-                Card selected = selectCard(false, player);
+                Card selected = selectCard(false, player)[0];
                 if (selected == null) break;
                 if (effect.FreeByTotalValue) value -= selected.Cost[effect.TargetIndex];
                 aquired.Add(selected);
@@ -120,7 +120,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 available.RemoveAll(x => x.Type == value);
                 if (available.Count == 0) break;
                 selectFromCards = available;
-                Card selected = selectCard(false, player);
+                Card selected = selectCard(false, player)[0];
                 if (selected == null) break;
                 aquired.Add(selected);
             }
@@ -142,6 +142,22 @@ namespace Deck_Biulding_Card_Game_Biulder
                     Card destroyed = (random == true) ? playerList[players[i]].destroy(true) : playerList[players[i]].destroy(selectCardIndex(true, players[i]));
                     mainDeckList[0].addToDestroyed(destroyed);
                 }
+            }
+        }
+
+        public void cardEventAddPowerIfDestroy(CardEffect effect)
+        {
+            selectFromCards = playerList[player].AvailableCards;
+            List<Card> destroyed = selectCard(false, player, effect.NumberOfEffects);
+            if (destroyed == null) return;
+            foreach (Card c in destroyed)
+            {
+                playerList[player].AvailableCards.Remove(c);
+                mainDeckList[0].addToDestroyed(c);
+            }
+            for (int i = 0; i < effect.Power.Count(); i++)
+            {
+                buyPower[i] += effect.Power[i];
             }
         }
 
@@ -174,7 +190,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (selectFromCards.Count == 0) break;
-                    Card discard = selectCard(true, i);
+                    Card discard = selectCard(true, i)[0];
                     playerList[players[i]].AvailableCards.Remove(discard); // may not need this
                     playerList[players[i]].RemovedCards.Add(discard);
                 }
@@ -191,7 +207,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (playerList[i].AvailableCards.Count == 0) break;
-                    Card discard = selectCard(true, i);
+                    Card discard = selectCard(true, i)[0];
                     playerList[players[i]].AvailableCards.Remove(discard); // may not need this
                     playerList[players[i]].RemovedCards.Add(discard);
                 }
@@ -265,7 +281,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                     for (int j = 0; j < inumberation; j++)
                     {
                         if (selectFromCards.Count == 0) break;
-                        Card selected = selectCard(false, i);
+                        Card selected = selectCard(false, i)[0];
                         if (selected == null) break;
                         playerList[players[i]].AvailableCards.Add(selected);
                         playerList[players[i]].RemovedCards.Remove(selected);
@@ -289,7 +305,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                     for (int j = 0; j < inumberation; j++)
                     {
                         if (selectFromCards.Count == 0) break;
-                        Card selected = selectCard(false, i);
+                        Card selected = selectCard(false, i)[0];
                         if (selected == null) break;
                         playerList[players[i]].AvailableCards.Add(selected);
                         playerList[players[i]].RemovedCards.Remove(selected);
@@ -299,12 +315,31 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
 
+        public void cardEventDiscardedTypeBasedAddPower(CardEffect effect)
+        {
+            selectFromCards = playerList[player].RemovedCards.FindAll(x => x.Type == effect.TargetCardType);
+            if (effect.EffectCondition == CondidionToExecute.forEachthatMatch)
+            {
+                for (int i = 0; i < effect.Power.Count(); i++)
+                {
+                    buyPower[i] += (effect.Power[i] * selectFromCards.Count);
+                }
+            }
+            else if (selectFromCards.Count > 0)
+            {
+                for (int i = 0; i < effect.Power.Count(); i++)
+                {
+                    buyPower[i] += effect.Power[i];
+                }
+            }
+        }
+
         public void cardEventTypeBasedAddPower(CardEffect effect)
         {
             selectFromCards = playerList[player].playedCards.FindAll(x => x.Type == effect.TargetCardType);
-            if(selectFromCards.Count == effect.Value)
+            if (selectFromCards.Count == effect.Value)
             {
-                for(int i = 0; i < effect.Power.Count(); i++)
+                for (int i = 0; i < effect.Power.Count(); i++)
                 {
                     buyPower[i] += effect.Power[i];
                 }
@@ -339,7 +374,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                     for (int j = 0; j < inumberation; j++)
                     {
                         if (selectFromCards.Count == 0) break;
-                        Card selected = selectCard(false, i);
+                        Card selected = selectCard(false, i)[0];
                         if (selected == null) break;
                         playerList[players[i]].AvailableCards.Add(selected);
                         playerList[players[i]].RemovedCards.Remove(selected);
@@ -362,7 +397,7 @@ namespace Deck_Biulding_Card_Game_Biulder
                 for (int j = 0; j < effect.NumberOfEffects; j++)
                 {
                     if (selectFromCards.Count == 0) break;
-                    toMove[players[i]].Add(selectCard(true, i));
+                    toMove[players[i]].Add(selectCard(true, i)[0]);
 
                 }
             }

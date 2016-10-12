@@ -37,17 +37,20 @@ namespace Deck_Biulding_Card_Game_Biulder
 
     public enum CondidionToExecute
     {
+        none,
         allMustMatch,
         ifAnyMatch,
-        none
+        forEachthatMatch
+        
     }
 
     public enum CardSelectionType
     {
+        none,
         forceAllCards,
         upToAllCards,
         SelectSpecificNumber,
-        none
+        
     }
 
     public enum MatchCondition

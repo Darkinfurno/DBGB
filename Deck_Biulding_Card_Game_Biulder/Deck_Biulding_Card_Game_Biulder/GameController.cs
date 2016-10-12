@@ -68,7 +68,7 @@ namespace Deck_Biulding_Card_Game_Biulder
             List<Card> available = findAllOfEffectType(defendingPlayer, Special.defend);
             if (available.Count == 0) return false;
             selectFromCards = available;
-            Card playedDefence = selectCard(false, defendingPlayer);
+            Card playedDefence = selectCard(false, defendingPlayer)[0];
             if (playedDefence == null) return false;
             int currentPlayer = player;
             player = defendingPlayer;
@@ -158,10 +158,10 @@ namespace Deck_Biulding_Card_Game_Biulder
                             cardEventTypeBasedAddPowerPeek(cef);
                             break;
                         case events.AddPowerTypeInDiscard:
-
+                            cardEventDiscardedTypeBasedAddPower(cef);
                             break;
                         case events.AddPowerIfDestroy:
-
+                            cardEventAddPowerIfDestroy(cef);
                             break;
 
                     }
@@ -192,17 +192,22 @@ namespace Deck_Biulding_Card_Game_Biulder
         }
 
         //Must Select is a determinating factor if the cancel button is active on the form.
-        public Card selectCard(bool mustSelect, int targetPlayer)
+        public List<Card> selectCard(bool mustSelect, int targetPlayer, int selectNumber = 1)
         {
             int selectedIndex = 0;//get index from select card display window
             bool cancel = false; // if selection is canceled then no card is returned or in this case a null card
             //Call to display selectable cards Form
-
-
-            if (cancel) return null;
-            Card selected = selectFromCards[selectedIndex];
-            selectFromCards.RemoveAt(selectedIndex);
-            return selected;
+            List<Card> returned = new List<Card>();
+            for (int i = 0; i < selectNumber; i++)
+            {
+                if (cancel)
+                {
+                    return null;
+                }
+                returned.Add(selectFromCards[selectedIndex]);
+                selectFromCards.RemoveAt(selectedIndex);
+            }
+            return returned;
         }
 
         public int selectCardIndex(bool mustSelect, int targetPlayer)
