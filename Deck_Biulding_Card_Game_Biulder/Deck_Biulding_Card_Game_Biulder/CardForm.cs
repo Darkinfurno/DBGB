@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    public partial class Form1 : Form
+    public partial class CardForm : Form
     {
-        public Form1()
+        public CardForm()
         {
             InitializeComponent();
         }
