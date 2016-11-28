@@ -16,6 +16,17 @@ namespace Deck_Biulding_Card_Game_Biulder
         {
             InitializeComponent();
         }
+        Card card;
+
+        public void setCard(Card card)
+        {
+            this.card = card;
+        }
+
+        private void CardForm_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
         
     }
 }

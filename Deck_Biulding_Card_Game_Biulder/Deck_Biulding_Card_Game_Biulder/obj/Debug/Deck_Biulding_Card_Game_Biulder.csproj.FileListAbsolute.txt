@@ -20,3 +20,6 @@ U:\CIS Senior Design\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Gam
 U:\CIS Senior Design\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\obj\Debug\Deck_Biulding_Card_Game_Biulder.csproj.GenerateResource.Cache
 U:\CIS Senior Design\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\bin\Debug\Deck_Biulding_Card_Game_Biulder.exe
 U:\CIS Senior Design\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\bin\Debug\Deck_Biulding_Card_Game_Biulder.pdb
+C:\Users\Shadowblaze\Desktop\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\bin\Debug\Deck_Biulding_Card_Game_Biulder.exe.config
+C:\Users\Shadowblaze\Desktop\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\obj\Debug\Deck_Biulding_Card_Game_Biulder.exe
+C:\Users\Shadowblaze\Desktop\DBGB\Deck_Biulding_Card_Game_Biulder\Deck_Biulding_Card_Game_Biulder\obj\Debug\Deck_Biulding_Card_Game_Biulder.pdb
