@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    class GameDeck : DeckBaseClass
+    public class GameDeck : DeckBaseClass
     {
         public bool refillAtTurnChange = true;
        

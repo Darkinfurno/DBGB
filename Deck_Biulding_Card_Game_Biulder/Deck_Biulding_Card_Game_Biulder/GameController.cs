@@ -8,12 +8,12 @@ namespace Deck_Biulding_Card_Game_Biulder
 {
     public partial class GameController
     {
-        List<PlayerDeck> playerList;
-        List<GameDeck> mainDeckList;
-        List<Card> removedCards;
-        List<Card> startingDeck;
-        List<Card> selectFromCards;
-        List<int> buyPower;
+        public List<PlayerDeck> playerList { get; private set; }
+        public List<GameDeck> mainDeckList{ get; private set; }
+        public List<Card> removedCards{ get; private set; }
+        public List<Card> startingDeck{ get; private set; }
+        public List<Card> selectFromCards{ get; private set; }
+        public List<int> buyPower{ get; private set; }
         int player = 0;
         //Select Cards from effect could work where all cards that are valid to be selected from show up in a list and 1 is selected, if multiple then the form will display again.
 
@@ -64,7 +64,6 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         public bool processDefence(int defendingPlayer)
         {
-            throw new NotImplementedException();
             List<Card> available = findAllOfEffectType(defendingPlayer, Special.defend);
             if (available.Count == 0) return false;
             selectFromCards = available;

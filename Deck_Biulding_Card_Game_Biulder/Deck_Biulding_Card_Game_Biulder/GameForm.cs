@@ -10,20 +10,22 @@ using System.Windows.Forms;
 
 namespace Deck_Biulding_Card_Game_Biulder
 {
-    public partial class CardForm : Form
+    public partial class GameForm : Form
     {
-        public CardForm()
+        public GameForm()
         {
             InitializeComponent();
         }
-        Card card;
 
-        public void setCard(Card card)
+        GameController Game = new GameController();
+
+        private void GameForm_Load(object sender, EventArgs e)
         {
-            this.card = card;
+            List<DeckForm> Decks = new List<DeckForm>();
+
         }
 
-        private void CardForm_MouseClick(object sender, MouseEventArgs e)
+        private void tabPage1_Click(object sender, EventArgs e)
         {
 
         }
