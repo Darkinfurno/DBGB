@@ -15,11 +15,10 @@ namespace Deck_Biulding_Card_Game_Biulder
         public List<Card> selectFromCards{ get; private set; }
         public List<int> buyPower{ get; private set; }
         int player = 0;
+
         //Select Cards from effect could work where all cards that are valid to be selected from show up in a list and 1 is selected, if multiple then the form will display again.
 
-
         //Events need to be able to link together Exp. peek at top 2 cards draw if different types draw = peekSelf * 2 + typeDifDraw maybe have events take arguments of type object and cast to type expected?
-
 
         public GameController()
         {

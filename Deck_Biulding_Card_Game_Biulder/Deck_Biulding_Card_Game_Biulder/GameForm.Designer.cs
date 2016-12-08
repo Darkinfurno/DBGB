@@ -38,6 +38,8 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.endTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +47,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.gameToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1334, 24);
@@ -67,31 +70,31 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // demoGameToolStripMenuItem
             // 
             this.demoGameToolStripMenuItem.Name = "demoGameToolStripMenuItem";
-            this.demoGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.demoGameToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.demoGameToolStripMenuItem.Text = "Demo Game";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // Tabs
@@ -110,7 +113,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1085, 782);
+            this.tabPage1.Size = new System.Drawing.Size(1326, 991);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Play";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -124,6 +127,23 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Create/Edit";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.endTurnToolStripMenuItem});
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameToolStripMenuItem.Text = "Game";
+            // 
+            // endTurnToolStripMenuItem
+            // 
+            this.endTurnToolStripMenuItem.Name = "endTurnToolStripMenuItem";
+            this.endTurnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.endTurnToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.endTurnToolStripMenuItem.Text = "End Turn";
+            this.endTurnToolStripMenuItem.Click += new System.EventHandler(this.endTurnToolStripMenuItem_Click);
             // 
             // GameForm
             // 
@@ -157,5 +177,7 @@
         private System.Windows.Forms.TabControl Tabs;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem endTurnToolStripMenuItem;
     }
 }

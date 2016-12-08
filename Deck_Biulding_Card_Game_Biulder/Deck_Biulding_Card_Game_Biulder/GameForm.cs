@@ -21,11 +21,25 @@ namespace Deck_Biulding_Card_Game_Biulder
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            List<DeckForm> Decks = new List<DeckForm>();
+            //Decks loaded from file into Game
+            DeckForm[] Decks = new DeckForm[Game.mainDeckList.Count + 1];
+            //Decks loaded from file
+
+           
 
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void endTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
