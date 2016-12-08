@@ -25,8 +25,6 @@ namespace Deck_Biulding_Card_Game_Biulder
             DeckForm[] Decks = new DeckForm[Game.mainDeckList.Count + 1];
             //Decks loaded from file
 
-           
-
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
